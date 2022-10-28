@@ -1,10 +1,14 @@
+import { Container } from "@mui/material";
 import TopMenu from "../components/UI/TopMenu";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
     <div>
-      <TopMenu />
-      <Component {...pageProps} />
+      <Container maxWidth="md">
+        {" "}
+        <TopMenu />
+        <Component {...pageProps} />
+      </Container>
     </div>
   );
 };

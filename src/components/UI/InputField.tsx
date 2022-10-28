@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Grid, Stack, TextField } from "@mui/material";
 import React, { useRef } from "react";
 
 const UpdateTodo = (props) => {
@@ -24,33 +24,45 @@ const UpdateTodo = (props) => {
 
   return (
     <form onSubmit={submitHandler}>
-      <TextField
-        inputRef={idRef}
-        id="filled-multiline-flexible"
-        label="ID"
-        multiline
-        maxRows={4}
-        variant="filled"
-      />
-      <TextField
-        inputRef={titleRef}
-        fullWidth
-        id="filled-basic"
-        label="Title"
-        variant="filled"
-        type="text"
-      />
-      <TextField
-        inputRef={textRef}
-        fullWidth
-        id="filled-basic"
-        label="Text"
-        variant="filled"
-        type="text"
-      />
-      <Button type="submit" color="primary">
-        Submit
-      </Button>
+      <Stack spacing={2}>
+        <Grid container spacing={0.5}>
+          <Grid item xs={5}>
+            <TextField
+              inputRef={idRef}
+              id="filled-multiline-flexible"
+              label="ID"
+              maxRows={4}
+              variant="filled"
+            />
+          </Grid>
+          <Grid item xs={8}>
+            <TextField
+              inputRef={titleRef}
+              id="filled-basic"
+              fullWidth
+              label="Title"
+              variant="filled"
+              type="text"
+            />
+          </Grid>
+          <Grid item xs={8}>
+            <TextField
+              inputRef={textRef}
+              multiline
+              fullWidth
+              id="filled-multiline-static"
+              label="Text"
+              variant="filled"
+              type="text"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Button type="submit" color="primary">
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+      </Stack>
     </form>
   );
 };
