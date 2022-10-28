@@ -1,6 +1,6 @@
 import { Breadcrumbs, Link } from "@mui/material";
 
-const TopMenu = (props) => {
+const TopMenu = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link underline="hover" color="primary" href="/">
@@ -8,6 +8,9 @@ const TopMenu = (props) => {
       </Link>
       <Link underline="hover" color="secondary" href="/new-todo">
         Add Todo
+      </Link>
+      <Link underline="hover" color="secondary" href="/edit-todo">
+        Edit Todo
       </Link>
     </Breadcrumbs>
   );
