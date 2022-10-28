@@ -1,7 +1,7 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useRef } from "react";
 
-const NewTodo = (props) => {
+const NewTodo = ({ onAddTodo }) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLInputElement>(null);
 
@@ -16,7 +16,7 @@ const NewTodo = (props) => {
       text: enteredText,
     };
 
-    props.onAddTodo(todoData);
+    onAddTodo(todoData);
   };
 
   return (
@@ -36,6 +36,8 @@ const NewTodo = (props) => {
           <Grid item xs={8}>
             <TextField
               inputRef={textRef}
+              multiline
+              rows={3}
               fullWidth
               id="filled-basic"
               label="Text"
@@ -44,7 +46,9 @@ const NewTodo = (props) => {
             />
           </Grid>
         </Grid>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" variant="outlined">
+          Submit
+        </Button>
       </Stack>
     </form>
   );

@@ -1,7 +1,7 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
 import React, { useRef } from "react";
 
-const UpdateTodo = (props) => {
+const UpdateTodo = ({ onUpdateTodo }) => {
   const idRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLInputElement>(null);
@@ -19,7 +19,7 @@ const UpdateTodo = (props) => {
       text: enteredText,
     };
 
-    props.onUpdateTodo(updateTodo);
+    onUpdateTodo(updateTodo);
   };
 
   return (
@@ -49,6 +49,7 @@ const UpdateTodo = (props) => {
             <TextField
               inputRef={textRef}
               multiline
+              rows={3}
               fullWidth
               id="filled-multiline-static"
               label="Text"
@@ -57,7 +58,7 @@ const UpdateTodo = (props) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <Button type="submit" color="primary">
+            <Button type="submit" variant="outlined">
               Submit
             </Button>
           </Grid>
