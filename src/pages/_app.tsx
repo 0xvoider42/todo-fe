@@ -1,19 +1,24 @@
-import { Container } from "@mui/material";
+import {
+  Container,
+  Experimental_CssVarsProvider as CssVarsProvider,
+} from "@mui/material";
 import TopMenu from "../components/UI/TopMenu";
 import { QueryClient, QueryClientProvider } from "react-query";
+import ThemeSwitcher from "../components/UI/ThemeSwitcher";
 
 const queryClient = new QueryClient();
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <div>
+    <CssVarsProvider>
       <QueryClientProvider client={queryClient}>
+        <ThemeSwitcher />
         <Container maxWidth="md">
           <TopMenu />
           <Component {...pageProps} />
         </Container>
       </QueryClientProvider>
-    </div>
+    </CssVarsProvider>
   );
 };
 

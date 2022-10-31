@@ -33,19 +33,19 @@ const UpdateTodo = () => {
             <TextField
               {...register("id", { required: true })}
               required
-              id="filled-multiline-flexible"
+              id="outlined-multiline-flexible"
               label="ID"
               maxRows={4}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={8}>
             <TextField
               {...register("title")}
-              id="filled-basic"
+              id="outlined-basic"
               fullWidth
               label="Title"
-              variant="filled"
+              variant="outlined"
               type="text"
             />
           </Grid>
@@ -55,9 +55,9 @@ const UpdateTodo = () => {
               multiline
               rows={3}
               fullWidth
-              id="filled-multiline-static"
+              id="outlined-multiline-static"
               label="Text"
-              variant="filled"
+              variant="outlined"
               type="text"
             />
           </Grid>

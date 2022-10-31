@@ -33,8 +33,8 @@ const NewTodo = () => {
               {...register("title")}
               fullWidth
               label="Title"
-              id="filled-basic"
-              variant="filled"
+              id="outlined-basic"
+              variant="outlined"
               type="text"
             />
           </Grid>
@@ -45,8 +45,8 @@ const NewTodo = () => {
               rows={3}
               fullWidth
               label="Text"
-              id="filled-basic"
-              variant="filled"
+              id="outlined-basic"
+              variant="outlined"
               type="text"
             />
           </Grid>
