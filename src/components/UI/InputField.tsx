@@ -1,12 +1,28 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import Todo from "../../models/todo";
 
-const UpdateTodo = ({ onUpdateTodo }) => {
+const UpdateTodo = () => {
   const { register, handleSubmit } = useForm();
 
+  const updateTodo = async (updateTodo: Todo) => {
+    const { id } = updateTodo;
+    const { title, text } = updateTodo;
+
+    const response = await fetch(`http://localhost:3000/todos/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, text }),
+    });
+
+    return response;
+  };
+
+  const { mutate } = useMutation(updateTodo);
+
   const submitHandler = (data: Todo) => {
-    onUpdateTodo(data);
+    mutate(data);
   };
 
   return (
@@ -15,7 +31,7 @@ const UpdateTodo = ({ onUpdateTodo }) => {
         <Grid container spacing={0.5}>
           <Grid item xs={5}>
             <TextField
-              {...register("Id", { required: true })}
+              {...register("id", { required: true })}
               required
               id="filled-multiline-flexible"
               label="ID"

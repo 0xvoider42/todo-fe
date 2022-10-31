@@ -6,7 +6,10 @@ import {
   TableCell,
   TableBody,
   Paper,
+  Alert,
+  LinearProgress,
 } from "@mui/material";
+import { useMutation, useQuery } from "react-query";
 import Todo from "../../models/todo";
 
 // interface Props {
@@ -26,6 +29,19 @@ const TodoTable: (todos: Todo[]) => JSX.Element = ({ todos }) => {
     return response;
   };
 
+  const { mutate } = useMutation(onRemoveTodo);
+
+  const fetchTodo = async () => {
+    const fetchingTodos = await todos;
+    return fetchingTodos;
+  };
+
+  const { data, isLoading, isError } = useQuery("todos", fetchTodo);
+
+  if (isLoading) return <LinearProgress color="secondary" />;
+
+  if (isError) return <Alert severity="error">Something went wrong</Alert>;
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,11 +55,11 @@ const TodoTable: (todos: Todo[]) => JSX.Element = ({ todos }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {todos.map((todo: Todo) => (
+          {data.map((todo: Todo) => (
             <TableRow
               key={todo.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              onClick={() => onRemoveTodo(todo.id)}
+              onClick={() => mutate(todo.id)}
             >
               <TableCell component="th" scope="row">
                 {todo.id}

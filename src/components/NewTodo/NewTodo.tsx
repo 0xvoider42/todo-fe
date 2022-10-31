@@ -1,15 +1,12 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import Todo from "../../models/todo";
 
 const NewTodo = () => {
   const { register, handleSubmit } = useForm({
     defaultValues: { title: "", text: "" },
   });
-
-  const submitHandler = (data: Todo) => {
-    addTodoHandler(data);
-  };
 
   const addTodoHandler = async (todoData: Todo) => {
     const response = await fetch("http://localhost:3000/todos", {
@@ -19,6 +16,12 @@ const NewTodo = () => {
     });
 
     return response;
+  };
+
+  const { mutate } = useMutation(addTodoHandler);
+
+  const submitHandler = (data: Todo) => {
+    mutate(data);
   };
 
   return (
