@@ -1,23 +1,14 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
-import { useRef } from "react";
+import { useForm } from "react-hook-form";
 import Todo from "../../models/todo";
 
 const NewTodo = () => {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const textRef = useRef<HTMLInputElement>(null);
+  const { register, handleSubmit } = useForm({
+    defaultValues: { title: "", text: "" },
+  });
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-
-    const enteredTitle = titleRef.current.value;
-    const enteredText = textRef.current!.value;
-
-    const todoData = {
-      title: enteredTitle,
-      text: enteredText,
-    };
-
-    addTodoHandler(todoData);
+  const submitHandler = (data: Todo) => {
+    addTodoHandler(data);
   };
 
   const addTodoHandler = async (todoData: Todo) => {
@@ -31,27 +22,27 @@ const NewTodo = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <Stack spacing={2} alignItems="flex-start">
         <Grid container spacing={0.5}>
           <Grid item xs={8}>
             <TextField
-              inputRef={titleRef}
+              {...register("title")}
               fullWidth
-              id="filled-basic"
               label="Title"
+              id="filled-basic"
               variant="filled"
               type="text"
             />
           </Grid>
           <Grid item xs={8}>
             <TextField
-              inputRef={textRef}
+              {...register("text")}
               multiline
               rows={3}
               fullWidth
-              id="filled-basic"
               label="Text"
+              id="filled-basic"
               variant="filled"
               type="text"
             />

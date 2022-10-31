@@ -1,34 +1,22 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
-import React, { useRef } from "react";
+import { useForm } from "react-hook-form";
+import Todo from "../../models/todo";
 
 const UpdateTodo = ({ onUpdateTodo }) => {
-  const idRef = useRef<HTMLInputElement>(null);
-  const titleRef = useRef<HTMLInputElement>(null);
-  const textRef = useRef<HTMLInputElement>(null);
+  const { register, handleSubmit } = useForm();
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-
-    const enteredId = idRef.current!.value;
-    const enteredTitle = titleRef.current.value;
-    const enteredText = textRef.current.value;
-
-    const updateTodo = {
-      id: enteredId,
-      title: enteredTitle,
-      text: enteredText,
-    };
-
-    onUpdateTodo(updateTodo);
+  const submitHandler = (data: Todo) => {
+    onUpdateTodo(data);
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <Stack spacing={2}>
         <Grid container spacing={0.5}>
           <Grid item xs={5}>
             <TextField
-              inputRef={idRef}
+              {...register("Id", { required: true })}
+              required
               id="filled-multiline-flexible"
               label="ID"
               maxRows={4}
@@ -37,7 +25,7 @@ const UpdateTodo = ({ onUpdateTodo }) => {
           </Grid>
           <Grid item xs={8}>
             <TextField
-              inputRef={titleRef}
+              {...register("title")}
               id="filled-basic"
               fullWidth
               label="Title"
@@ -47,7 +35,7 @@ const UpdateTodo = ({ onUpdateTodo }) => {
           </Grid>
           <Grid item xs={8}>
             <TextField
-              inputRef={textRef}
+              {...register("text")}
               multiline
               rows={3}
               fullWidth
