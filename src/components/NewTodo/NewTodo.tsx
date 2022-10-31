@@ -1,7 +1,8 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useRef } from "react";
+import Todo from "../../models/todo";
 
-const NewTodo = ({ onAddTodo }) => {
+const NewTodo = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLInputElement>(null);
 
@@ -16,7 +17,17 @@ const NewTodo = ({ onAddTodo }) => {
       text: enteredText,
     };
 
-    onAddTodo(todoData);
+    addTodoHandler(todoData);
+  };
+
+  const addTodoHandler = async (todoData: Todo) => {
+    const response = await fetch("http://localhost:3000/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(todoData),
+    });
+
+    return response;
   };
 
   return (

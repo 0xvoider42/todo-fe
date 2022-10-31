@@ -5,7 +5,6 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <div>
       <Container maxWidth="md">
-        {" "}
         <TopMenu />
         <Component {...pageProps} />
       </Container>

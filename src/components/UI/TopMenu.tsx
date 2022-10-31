@@ -1,6 +1,6 @@
 import { Breadcrumbs, Link } from "@mui/material";
 
-const TopMenu = () => {
+const TopMenu: () => JSX.Element = () => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link underline="hover" color="primary" href="/">

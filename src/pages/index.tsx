@@ -5,10 +5,9 @@ interface Props {
   props: {
     todos: Todo[];
   };
-  revalidate: number;
 }
 
-export const getStaticProps: () => Promise<Props> = async () => {
+export const getServerSideProps: () => Promise<Props> = async () => {
   const response = await fetch("http://localhost:3000/todos");
   const data: Todo[] = await response.json();
 
@@ -16,24 +15,12 @@ export const getStaticProps: () => Promise<Props> = async () => {
     props: {
       todos: data,
     },
-    revalidate: 1,
   };
 };
 
-const Home: React.FC<{ todos: Todo[] }> = ({ todos }) => {
-  const removeTodo = async (id: number) => {
-    const response = await fetch(`http://localhost:3000/todos/${id}`, {
-      method: "DELETE",
-    });
-
-    return response;
-  };
-
-  const removeTodoHandler = (id: number) => {
-    return removeTodo(id);
-  };
-
-  return <TodoTable todos={todos} onRemoveTodo={removeTodoHandler} />;
+// todos is not accessible in Props, should I create a separate type/interface for this case?
+const Home = ({ todos }: Props) => {
+  return <TodoTable todos={todos} />;
 };
 
 export default Home;

@@ -7,19 +7,25 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
+import Todo from "../../models/todo";
 
-interface Props {
-  id: number;
-  title: string;
-  text: string;
-  createdAt: string;
-  updatedAt: string;
-}
+// interface Props {
+//   id: number;
+//   title: string;
+//   text: string;
+//   createdAt: string;
+//   updatedAt: string;
+// }
 
-const TodoTable: React.FC<{
-  todos: Props[];
-  onRemoveTodo: (id: number) => void;
-}> = ({ todos, onRemoveTodo }) => {
+const TodoTable: (todos: Todo[]) => JSX.Element = ({ todos }) => {
+  const onRemoveTodo = async (id: number) => {
+    const response = await fetch(`http://localhost:3000/todos/${id}`, {
+      method: "DELETE",
+    });
+
+    return response;
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -33,11 +39,11 @@ const TodoTable: React.FC<{
           </TableRow>
         </TableHead>
         <TableBody>
-          {todos.map((todo) => (
+          {todos.map((todo: Todo) => (
             <TableRow
               key={todo.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              onClick={onRemoveTodo.bind(null, todo.id)}
+              onClick={() => onRemoveTodo(todo.id)}
             >
               <TableCell component="th" scope="row">
                 {todo.id}
