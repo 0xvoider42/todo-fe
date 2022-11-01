@@ -1,4 +1,4 @@
-import { instance } from "../../config";
+import { instance } from "../services/api";
 import Todo from "../models/todo";
 import TodoTable from "../components/UI/TodoTable";
 

@@ -2,16 +2,12 @@ import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
-import { instance } from "../../../config";
+import { api } from "../../services/api";
 import Todo from "../../models/todo";
 
 const NewTodo = () => {
-  const { register, handleSubmit } = useForm({
-    defaultValues: { title: "", text: "" },
-  });
-
   const addTodoHandler = (todoData: Todo) => {
-    const response = instance.post("/todos", {
+    const response = api.post("/todos", {
       title: todoData.title,
       text: todoData.text,
     });
@@ -20,6 +16,10 @@ const NewTodo = () => {
   };
 
   const { mutate } = useMutation(addTodoHandler);
+
+  const { register, handleSubmit } = useForm({
+    defaultValues: { title: "", text: "" },
+  });
 
   const submitHandler = (data: Todo) => {
     mutate(data);

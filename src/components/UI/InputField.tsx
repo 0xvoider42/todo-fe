@@ -2,17 +2,14 @@ import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
-import { instance } from "../../../config";
+import { api } from "../../services/api";
 import Todo from "../../models/todo";
 
 const UpdateTodo = () => {
-  const { register, handleSubmit } = useForm();
-
   const updateTodo = (updateTodo: Todo) => {
-    const { id } = updateTodo;
-    const { title, text } = updateTodo;
+    const { id, title, text } = updateTodo;
 
-    const response = instance.patch(`/todos/${id}`, {
+    const response = api.patch(`/todos/${id}`, {
       title,
       text,
     });
@@ -21,6 +18,8 @@ const UpdateTodo = () => {
   };
 
   const { mutate } = useMutation(updateTodo);
+
+  const { register, handleSubmit } = useForm();
 
   const submitHandler = (data: Todo) => {
     mutate(data);
