@@ -2,13 +2,15 @@ import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
-import Todo from "../../models/todo";
+import { Todo } from "../../models/todo";
 import { editTodo } from "../../services/queries/edit-todo";
 
 const UpdateTodo = () => {
   const { mutate } = useMutation(editTodo);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    defaultValues: { id: "id", title: "title", text: "text" },
+  });
 
   const submitHandler = (data: Todo) => {
     mutate(data);

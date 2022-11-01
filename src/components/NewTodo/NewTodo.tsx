@@ -2,7 +2,7 @@ import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
-import Todo from "../../models/todo";
+import { Todo } from "../../models/todo";
 import { addTodo } from "../../services/queries/add-todo";
 
 const NewTodo = () => {

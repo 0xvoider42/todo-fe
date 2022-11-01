@@ -15,11 +15,7 @@ const ThemeSwitcher = () => {
     <Button
       variant="outlined"
       onClick={() => {
-        if (mode === "light") {
-          setMode("dark");
-        } else {
-          setMode("light");
-        }
+        setMode(mode === "light" ? "dark" : "light");
       }}
     >
       {mode === "light" ? "dark" : "light"}

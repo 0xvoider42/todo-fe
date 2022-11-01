@@ -6,28 +6,16 @@ import {
   TableCell,
   TableBody,
   Paper,
-  Alert,
-  LinearProgress,
 } from "@mui/material";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 
 import { deleteTodo } from "../../services/queries/delete-todo";
-import Todo from "../../models/todo";
+import { receiveTodo } from "../../models/todo";
 
-const TodoTable: ({ todos }: { todos: Todo[] }) => JSX.Element = ({
+const TodoTable: ({ todos }: { todos: receiveTodo[] }) => JSX.Element = ({
   todos,
 }) => {
   const { mutate } = useMutation(deleteTodo);
-
-  const fetchTodo = () => {
-    return todos;
-  };
-
-  const { data, isLoading, isError } = useQuery("todos", fetchTodo);
-
-  if (isLoading) return <LinearProgress color="secondary" />;
-
-  if (isError) return <Alert severity="error">Something went wrong</Alert>;
 
   return (
     <TableContainer component={Paper}>
@@ -42,7 +30,7 @@ const TodoTable: ({ todos }: { todos: Todo[] }) => JSX.Element = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((todo: Todo) => (
+          {todos.map((todo: receiveTodo) => (
             <TableRow
               key={todo.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

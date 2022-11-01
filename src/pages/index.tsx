@@ -1,14 +1,12 @@
-import Todo from "../models/todo";
+import { Todo, receiveTodo } from "../models/todo";
 import TodoTable from "../components/UI/TodoTable";
 import { getTodos } from "../services/queries/get-todos";
 
 interface Props {
-  props: {
-    todos: Todo[];
-  };
+  todos: receiveTodo[];
 }
 
-export const getServerSideProps: () => Promise<Props> = async () => {
+export const getServerSideProps = async () => {
   const data: Todo[] = await getTodos();
 
   return {
@@ -19,7 +17,7 @@ export const getServerSideProps: () => Promise<Props> = async () => {
 };
 
 // todos is not accessible in Props, should I create a separate type/interface for this case?
-const Home = ({ todos }) => {
+const Home = ({ todos }: Props) => {
   return <TodoTable todos={todos} />;
 };
 
