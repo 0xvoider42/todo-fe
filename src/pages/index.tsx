@@ -1,13 +1,13 @@
-import { Todo, receiveTodo } from "../models/todo";
-import TodoTable from "../components/UI/TodoTable";
 import { getTodos } from "../services/queries/get-todos";
+import { ApiTodo, receiveTodo } from "../models/todo";
+import TodoTable from "../components/UI/TodoTable";
 
 interface Props {
   todos: receiveTodo[];
 }
 
 export const getServerSideProps = async () => {
-  const data: Todo[] = await getTodos();
+  const data: ApiTodo[] = await getTodos();
 
   return {
     props: {
@@ -16,7 +16,6 @@ export const getServerSideProps = async () => {
   };
 };
 
-// todos is not accessible in Props, should I create a separate type/interface for this case?
 const Home = ({ todos }: Props) => {
   return <TodoTable todos={todos} />;
 };

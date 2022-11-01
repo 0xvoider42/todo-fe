@@ -2,8 +2,8 @@ import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
-import { Todo } from "../../models/todo";
 import { addTodo } from "../../services/queries/add-todo";
+import { ApiTodo } from "../../models/todo";
 
 const NewTodo = () => {
   const { mutate } = useMutation(addTodo);
@@ -12,7 +12,7 @@ const NewTodo = () => {
     defaultValues: { title: "", text: "" },
   });
 
-  const submitHandler = (data: Todo) => {
+  const submitHandler = (data: ApiTodo) => {
     mutate(data);
   };
 

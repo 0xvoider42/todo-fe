@@ -1,8 +1,11 @@
 import { AxiosResponse } from "axios";
-import { Todo } from "../../models/todo";
-import { api } from "../api";
 
-export const editTodo = (updateTodo: Todo): Promise<AxiosResponse<Todo>> => {
+import { api } from "../api";
+import { ApiTodo } from "../../models/todo";
+
+export const editTodo = (
+  updateTodo: ApiTodo
+): Promise<AxiosResponse<ApiTodo>> => {
   const { id, title, text } = updateTodo;
   return api.patch(`/todos/${id}`, { title, text });
 };

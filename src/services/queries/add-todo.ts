@@ -1,8 +1,9 @@
 import { AxiosResponse } from "axios";
-import { Todo } from "../../models/todo";
-import { api } from "../api";
 
-export const addTodo = (todoData: Todo): Promise<AxiosResponse<Todo>> => {
+import { api } from "../api";
+import { ApiTodo } from "../../models/todo";
+
+export const addTodo = (todoData: ApiTodo): Promise<AxiosResponse<ApiTodo>> => {
   return api.post("/todos", {
     title: todoData.title,
     text: todoData.text,

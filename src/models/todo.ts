@@ -6,7 +6,7 @@ export interface receiveTodo {
   updatedAt: string;
 }
 
-export interface Todo {
+export interface ApiTodo {
   id?: number | string;
   title: string;
   text: string;
