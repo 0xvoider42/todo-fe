@@ -1,6 +1,8 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
+
+import { instance } from "../../../config";
 import Todo from "../../models/todo";
 
 const NewTodo = () => {
@@ -8,11 +10,10 @@ const NewTodo = () => {
     defaultValues: { title: "", text: "" },
   });
 
-  const addTodoHandler = async (todoData: Todo) => {
-    const response = await fetch("http://localhost:3000/todos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(todoData),
+  const addTodoHandler = (todoData: Todo) => {
+    const response = instance.post("/todos", {
+      title: todoData.title,
+      text: todoData.text,
     });
 
     return response;

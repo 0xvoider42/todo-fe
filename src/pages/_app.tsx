@@ -2,9 +2,10 @@ import {
   Container,
   Experimental_CssVarsProvider as CssVarsProvider,
 } from "@mui/material";
-import TopMenu from "../components/UI/TopMenu";
 import { QueryClient, QueryClientProvider } from "react-query";
+
 import ThemeSwitcher from "../components/UI/ThemeSwitcher";
+import TopMenu from "../components/UI/TopMenu";
 
 const queryClient = new QueryClient();
 

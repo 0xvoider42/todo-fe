@@ -1,5 +1,6 @@
-import TodoTable from "../components/UI/TodoTable";
+import { instance } from "../../config";
 import Todo from "../models/todo";
+import TodoTable from "../components/UI/TodoTable";
 
 interface Props {
   props: {
@@ -8,8 +9,10 @@ interface Props {
 }
 
 export const getServerSideProps: () => Promise<Props> = async () => {
-  const response = await fetch("http://localhost:3000/todos");
-  const data: Todo[] = await response.json();
+  const response = instance.get("/todos").then((res) => {
+    return res.data;
+  });
+  const data: Todo[] = await response;
 
   return {
     props: {

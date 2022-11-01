@@ -10,30 +10,23 @@ import {
   LinearProgress,
 } from "@mui/material";
 import { useMutation, useQuery } from "react-query";
+
+import { instance } from "../../../config";
 import Todo from "../../models/todo";
 
-// interface Props {
-//   id: number;
-//   title: string;
-//   text: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
-
-const TodoTable: (todos: Todo[]) => JSX.Element = ({ todos }) => {
+const TodoTable: ({ todos }: { todos: Todo[] }) => JSX.Element = ({
+  todos,
+}) => {
   const onRemoveTodo = async (id: number) => {
-    const response = await fetch(`http://localhost:3000/todos/${id}`, {
-      method: "DELETE",
-    });
+    const response = instance.delete(`/todos/${id}`);
 
     return response;
   };
 
   const { mutate } = useMutation(onRemoveTodo);
 
-  const fetchTodo = async () => {
-    const fetchingTodos = await todos;
-    return fetchingTodos;
+  const fetchTodo = () => {
+    return todos;
   };
 
   const { data, isLoading, isError } = useQuery("todos", fetchTodo);

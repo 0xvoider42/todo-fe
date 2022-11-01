@@ -1,19 +1,20 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
+
+import { instance } from "../../../config";
 import Todo from "../../models/todo";
 
 const UpdateTodo = () => {
   const { register, handleSubmit } = useForm();
 
-  const updateTodo = async (updateTodo: Todo) => {
+  const updateTodo = (updateTodo: Todo) => {
     const { id } = updateTodo;
     const { title, text } = updateTodo;
 
-    const response = await fetch(`http://localhost:3000/todos/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, text }),
+    const response = instance.patch(`/todos/${id}`, {
+      title,
+      text,
     });
 
     return response;
