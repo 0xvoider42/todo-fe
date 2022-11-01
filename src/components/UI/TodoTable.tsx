@@ -11,19 +11,13 @@ import {
 } from "@mui/material";
 import { useMutation, useQuery } from "react-query";
 
-import { api } from "../../services/api";
+import { deleteTodo } from "../../services/queries/delete-todo";
 import Todo from "../../models/todo";
 
 const TodoTable: ({ todos }: { todos: Todo[] }) => JSX.Element = ({
   todos,
 }) => {
-  const onRemoveTodo = async (id: number) => {
-    const response = api.delete(`/todos/${id}`);
-
-    return response;
-  };
-
-  const { mutate } = useMutation(onRemoveTodo);
+  const { mutate } = useMutation(deleteTodo);
 
   const fetchTodo = () => {
     return todos;
