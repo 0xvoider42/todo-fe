@@ -1,4 +1,4 @@
-interface Todo {
+export interface receiveTodo {
   id: number;
   title: string;
   text: string;
@@ -6,4 +6,8 @@ interface Todo {
   updatedAt: string;
 }
 
-export default Todo;
+export interface ApiTodo {
+  id?: number | string;
+  title: string;
+  text: string;
+}

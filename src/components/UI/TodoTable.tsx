@@ -7,19 +7,16 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
+import { useMutation } from "react-query";
 
-interface Props {
-  id: number;
-  title: string;
-  text: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { deleteTodo } from "../../services/queries/delete-todo";
+import { receiveTodo } from "../../models/todo";
 
-const TodoTable: React.FC<{
-  todos: Props[];
-  onRemoveTodo: (id: number) => void;
-}> = ({ todos, onRemoveTodo }) => {
+const TodoTable: ({ todos }: { todos: receiveTodo[] }) => JSX.Element = ({
+  todos,
+}) => {
+  const { mutate } = useMutation(deleteTodo);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -33,11 +30,11 @@ const TodoTable: React.FC<{
           </TableRow>
         </TableHead>
         <TableBody>
-          {todos.map((todo) => (
+          {todos.map((todo: receiveTodo) => (
             <TableRow
               key={todo.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              onClick={onRemoveTodo.bind(null, todo.id)}
+              onClick={() => mutate(todo.id)}
             >
               <TableCell component="th" scope="row">
                 {todo.id}

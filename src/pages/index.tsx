@@ -1,39 +1,23 @@
+import { getTodos } from "../services/queries/get-todos";
+import { ApiTodo, receiveTodo } from "../models/todo";
 import TodoTable from "../components/UI/TodoTable";
-import Todo from "../models/todo";
 
 interface Props {
-  props: {
-    todos: Todo[];
-  };
-  revalidate: number;
+  todos: receiveTodo[];
 }
 
-export const getStaticProps: () => Promise<Props> = async () => {
-  const response = await fetch("http://localhost:3000/todos");
-  const data: Todo[] = await response.json();
+export const getServerSideProps = async () => {
+  const data: ApiTodo[] = await getTodos();
 
   return {
     props: {
       todos: data,
     },
-    revalidate: 1,
   };
 };
 
-const Home: React.FC<{ todos: Todo[] }> = ({ todos }) => {
-  const removeTodo = async (id: number) => {
-    const response = await fetch(`http://localhost:3000/todos/${id}`, {
-      method: "DELETE",
-    });
-
-    return response;
-  };
-
-  const removeTodoHandler = (id: number) => {
-    return removeTodo(id);
-  };
-
-  return <TodoTable todos={todos} onRemoveTodo={removeTodoHandler} />;
+const Home = ({ todos }: Props) => {
+  return <TodoTable todos={todos} />;
 };
 
 export default Home;

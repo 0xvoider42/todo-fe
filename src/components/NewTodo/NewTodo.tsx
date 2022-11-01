@@ -1,47 +1,44 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
-import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 
-const NewTodo = ({ onAddTodo }) => {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const textRef = useRef<HTMLInputElement>(null);
+import { addTodo } from "../../services/queries/add-todo";
+import { ApiTodo } from "../../models/todo";
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+const NewTodo = () => {
+  const { mutate } = useMutation(addTodo);
 
-    const enteredTitle = titleRef.current.value;
-    const enteredText = textRef.current!.value;
+  const { register, handleSubmit } = useForm({
+    defaultValues: { title: "", text: "" },
+  });
 
-    const todoData = {
-      title: enteredTitle,
-      text: enteredText,
-    };
-
-    onAddTodo(todoData);
+  const submitHandler = (data: ApiTodo) => {
+    mutate(data);
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <Stack spacing={2} alignItems="flex-start">
         <Grid container spacing={0.5}>
           <Grid item xs={8}>
             <TextField
-              inputRef={titleRef}
+              {...register("title")}
               fullWidth
-              id="filled-basic"
               label="Title"
-              variant="filled"
+              id="outlined-basic"
+              variant="outlined"
               type="text"
             />
           </Grid>
           <Grid item xs={8}>
             <TextField
-              inputRef={textRef}
+              {...register("text")}
               multiline
               rows={3}
               fullWidth
-              id="filled-basic"
               label="Text"
-              variant="filled"
+              id="outlined-basic"
+              variant="outlined"
               type="text"
             />
           </Grid>

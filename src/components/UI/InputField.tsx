@@ -1,59 +1,54 @@
 import { Button, Grid, Stack, TextField } from "@mui/material";
-import React, { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 
-const UpdateTodo = ({ onUpdateTodo }) => {
-  const idRef = useRef<HTMLInputElement>(null);
-  const titleRef = useRef<HTMLInputElement>(null);
-  const textRef = useRef<HTMLInputElement>(null);
+import { ApiTodo } from "../../models/todo";
+import { editTodo } from "../../services/queries/edit-todo";
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+const UpdateTodo = () => {
+  const { mutate } = useMutation(editTodo);
 
-    const enteredId = idRef.current!.value;
-    const enteredTitle = titleRef.current.value;
-    const enteredText = textRef.current.value;
+  const { register, handleSubmit } = useForm({
+    defaultValues: { id: "", title: "", text: "" },
+  });
 
-    const updateTodo = {
-      id: enteredId,
-      title: enteredTitle,
-      text: enteredText,
-    };
-
-    onUpdateTodo(updateTodo);
+  const submitHandler = (data: ApiTodo) => {
+    mutate(data);
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <Stack spacing={2}>
         <Grid container spacing={0.5}>
           <Grid item xs={5}>
             <TextField
-              inputRef={idRef}
-              id="filled-multiline-flexible"
+              {...register("id", { required: true })}
+              required
+              id="outlined-multiline-flexible"
               label="ID"
               maxRows={4}
-              variant="filled"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={8}>
             <TextField
-              inputRef={titleRef}
-              id="filled-basic"
+              {...register("title")}
+              id="outlined-basic"
               fullWidth
               label="Title"
-              variant="filled"
+              variant="outlined"
               type="text"
             />
           </Grid>
           <Grid item xs={8}>
             <TextField
-              inputRef={textRef}
+              {...register("text")}
               multiline
               rows={3}
               fullWidth
-              id="filled-multiline-static"
+              id="outlined-multiline-static"
               label="Text"
-              variant="filled"
+              variant="outlined"
               type="text"
             />
           </Grid>
