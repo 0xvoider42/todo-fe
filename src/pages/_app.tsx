@@ -1,25 +1,26 @@
 import {
   Container,
   Experimental_CssVarsProvider as CssVarsProvider,
+  Stack,
 } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import ThemeSwitcher from "../components/UI/ThemeSwitcher";
 import TopMenu from "../components/UI/TopMenu";
 
 const queryClient = new QueryClient();
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <CssVarsProvider>
-      <QueryClientProvider client={queryClient}>
-        <ThemeSwitcher />
-        <Container maxWidth="md">
-          <TopMenu />
-          <Component {...pageProps} />
-        </Container>
-      </QueryClientProvider>
-    </CssVarsProvider>
+    <Container maxWidth="md">
+      <CssVarsProvider>
+        <QueryClientProvider client={queryClient}>
+          <Stack spacing={2}>
+            <TopMenu />
+            <Component {...pageProps} />
+          </Stack>
+        </QueryClientProvider>
+      </CssVarsProvider>
+    </Container>
   );
 };
 

@@ -16,8 +16,8 @@ export const getServerSideProps = async () => {
   };
 };
 
-const Home = ({ todos }: Props) => {
+const HomePage = ({ todos }: Props) => {
   return <TodoTable todos={todos} />;
 };
 
-export default Home;
+export default HomePage;

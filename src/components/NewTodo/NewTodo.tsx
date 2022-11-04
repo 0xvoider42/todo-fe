@@ -4,6 +4,7 @@ import { useMutation } from "react-query";
 
 import { addTodo } from "../../services/queries/add-todo";
 import { ApiTodo } from "../../models/todo";
+import { Container } from "@mui/system";
 
 const NewTodo = () => {
   const { mutate } = useMutation(addTodo);
@@ -17,10 +18,10 @@ const NewTodo = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)}>
-      <Stack spacing={2} alignItems="flex-start">
-        <Grid container spacing={0.5}>
-          <Grid item xs={8}>
+    <Container maxWidth="md">
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <Stack spacing={1.5} alignItems="baseline">
+          <Grid container direction="column" item xs={2}>
             <TextField
               {...register("title")}
               fullWidth
@@ -30,7 +31,7 @@ const NewTodo = () => {
               type="text"
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid container item xs={6}>
             <TextField
               {...register("text")}
               multiline
@@ -42,12 +43,12 @@ const NewTodo = () => {
               type="text"
             />
           </Grid>
-        </Grid>
-        <Button type="submit" variant="outlined">
-          Submit
-        </Button>
-      </Stack>
-    </form>
+          <Button type="submit" variant="outlined">
+            Submit
+          </Button>
+        </Stack>
+      </form>
+    </Container>
   );
 };
 

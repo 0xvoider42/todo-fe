@@ -1,4 +1,4 @@
-import { Button, Grid, Stack, TextField } from "@mui/material";
+import { Button, Container, Grid, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
@@ -17,20 +17,19 @@ const UpdateTodo = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)}>
-      <Stack spacing={2}>
-        <Grid container spacing={0.5}>
-          <Grid item xs={5}>
+    <Container maxWidth="md">
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <Stack spacing={1.5} alignItems="baseline">
+          <Grid container direction="column" item xs={2}>
             <TextField
               {...register("id", { required: true })}
               required
               id="outlined-multiline-flexible"
               label="ID"
-              maxRows={4}
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid container item xs={6}>
             <TextField
               {...register("title")}
               id="outlined-basic"
@@ -40,7 +39,7 @@ const UpdateTodo = () => {
               type="text"
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid container item xs={6}>
             <TextField
               {...register("text")}
               multiline
@@ -57,9 +56,9 @@ const UpdateTodo = () => {
               Submit
             </Button>
           </Grid>
-        </Grid>
-      </Stack>
-    </form>
+        </Stack>
+      </form>
+    </Container>
   );
 };
 

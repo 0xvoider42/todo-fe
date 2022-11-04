@@ -1,7 +1,7 @@
 import InputField from "../../components/UI/InputField";
 
-const EditTodo: () => JSX.Element = () => {
+const EditTodoPage: () => JSX.Element = () => {
   return <InputField />;
 };
 
-export default EditTodo;
+export default EditTodoPage;

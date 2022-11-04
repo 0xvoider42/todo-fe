@@ -1,7 +1,7 @@
 import { Backdrop, Button } from "@mui/material";
 import { useState } from "react";
 
-const Modal = (props) => {
+const Modal = () => {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
