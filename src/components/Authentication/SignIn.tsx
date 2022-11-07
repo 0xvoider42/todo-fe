@@ -9,15 +9,21 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
 
 import { signIn } from "../../services/auth/singIn";
+import { userSignIn } from "../features/authentication/userAction";
 
-interface FormInput {
+type FormInput = {
   email: string;
   password: string;
-}
+};
 
 const SignIn = () => {
+  const { loading, error } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
   const { mutate } = useMutation(signIn);
 
   const { register, handleSubmit } = useForm<FormInput>({
@@ -25,7 +31,7 @@ const SignIn = () => {
   });
 
   const submitHandler = (data: FormInput) => {
-    mutate(data);
+    dispatch(userSignIn(data));
   };
 
   return (
