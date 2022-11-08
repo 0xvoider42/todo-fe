@@ -7,6 +7,12 @@ import { ApiTodo } from "../../models/todo";
 import { Container } from "@mui/system";
 
 const NewTodo = () => {
+  let token: string;
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("token");
+  }
+
   const { mutate } = useMutation(addTodo);
 
   const { register, handleSubmit } = useForm({
@@ -14,7 +20,7 @@ const NewTodo = () => {
   });
 
   const submitHandler = (data: ApiTodo) => {
-    mutate(data);
+    mutate({ ...data, token });
   };
 
   return (

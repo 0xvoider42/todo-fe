@@ -8,30 +8,25 @@ import {
   Link,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import { userSignUp } from "../features/authentication/userAction";
-
-type FormInput = {
-  email: string;
-  password: string;
-};
+import { formInput } from "../../models/form";
+import { userState } from "../../models/userState";
+import { AppDispatch } from "../../store";
 
 const SignUp = () => {
-  const { loading, error, userInfo, success } = useSelector(
-    (state) => state.user
+  const { loading, error, success } = useSelector(
+    (state: userState) => state.user
   );
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
-  // const { mutate } = useMutation(signUp);
-
-  const { register, handleSubmit } = useForm<FormInput>({
+  const { register, handleSubmit } = useForm<formInput>({
     defaultValues: { email: "", password: "" },
   });
 
-  const submitHandler = (data: FormInput) => {
+  const submitHandler = (data: formInput) => {
     dispatch(userSignUp(data));
   };
 

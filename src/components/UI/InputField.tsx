@@ -6,14 +6,18 @@ import { ApiTodo } from "../../models/todo";
 import { editTodo } from "../../services/queries/edit-todo";
 
 const UpdateTodo = () => {
+  let token: string;
+
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("token");
+  }
+
   const { mutate } = useMutation(editTodo);
 
-  const { register, handleSubmit } = useForm({
-    defaultValues: { id: "", title: "", text: "" },
-  });
+  const { register, handleSubmit } = useForm({});
 
   const submitHandler = (data: ApiTodo) => {
-    mutate(data);
+    mutate({ ...data, token });
   };
 
   return (
