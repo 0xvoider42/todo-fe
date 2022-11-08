@@ -1,13 +1,8 @@
 import { Backdrop, Button } from "@mui/material";
 import { useState } from "react";
 
-
-const Modal = () => {
+const Modal = (props) => {
   const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleToggle = () => {
     setOpen(!open);
@@ -21,7 +16,7 @@ const Modal = () => {
         open={open}
       >
         <Button>Confirm</Button>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleToggle}>Cancel</Button>
       </Backdrop>
     </>
   );

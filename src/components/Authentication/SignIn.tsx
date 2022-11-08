@@ -8,18 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { userSignIn } from "../features/authentication/userAction";
 import { formInput } from "../../models/form";
 import { AppDispatch } from "../../store";
-import { userState } from "../../models/userState";
 
 const SignIn = () => {
-  const { loading, error, success } = useSelector(
-    (state: userState) => state.user
-  );
-
   const dispatch: AppDispatch = useDispatch();
 
   const { register, handleSubmit } = useForm<formInput>({

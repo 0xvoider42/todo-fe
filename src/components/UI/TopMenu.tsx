@@ -1,7 +1,7 @@
-import { Breadcrumbs, Link } from "@mui/material";
+import { Breadcrumbs, Button, Link, Stack } from "@mui/material";
 import { Container } from "@mui/system";
 
-const TopMenu: () => JSX.Element = () => {
+const TopMenu = (props) => {
   return (
     <Container>
       <Breadcrumbs aria-label="breadcrumb">
@@ -15,6 +15,14 @@ const TopMenu: () => JSX.Element = () => {
           Edit Todo
         </Link>
       </Breadcrumbs>
+      <Stack direction="row" spacing={5} justifyContent="end">
+        <Button variant="contained" href="/signup">
+          Sign up
+        </Button>
+        <Button variant="outlined" href="/signin">
+          Sign in
+        </Button>
+      </Stack>
     </Container>
   );
 };

@@ -8,18 +8,13 @@ import {
   Link,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { userSignUp } from "../features/authentication/userAction";
 import { formInput } from "../../models/form";
-import { userState } from "../../models/userState";
 import { AppDispatch } from "../../store";
 
 const SignUp = () => {
-  const { loading, error, success } = useSelector(
-    (state: userState) => state.user
-  );
-
   const dispatch: AppDispatch = useDispatch();
 
   const { register, handleSubmit } = useForm<formInput>({
