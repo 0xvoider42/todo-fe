@@ -1,5 +1,6 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
+
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import ThemeSwitcher from "./ThemeSwitcher";

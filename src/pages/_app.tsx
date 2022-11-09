@@ -8,19 +8,12 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { api } from "../services/api";
 import { store } from "../store/index";
 import TopMenu from "../components/UI/TopMenu";
+import { getCookie } from "cookies-next";
 
 const queryClient = new QueryClient();
 
 const MyApp = ({ Component, pageProps }) => {
-  let token: string;
-
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("token");
-  }
-
-  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-  console.log(api.defaults.headers);
+  api.defaults.headers.common["Authorization"] = `Bearer ${getCookie("token")}`;
 
   return (
     <Provider store={store}>

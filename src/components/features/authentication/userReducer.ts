@@ -1,12 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { deleteCookie, setCookie } from "cookies-next";
 
 import { userSignIn, userSignUp } from "./userAction";
-
-let token: string;
-
-if (typeof window !== "undefined") {
-  token = localStorage.getItem("token");
-}
 
 const initialState = {
   loading: false,
@@ -14,7 +9,7 @@ const initialState = {
     user: null,
     userId: null,
   },
-  userToken: token,
+  userToken: "",
   error: null,
   success: false,
 };
@@ -33,12 +28,12 @@ const userSlice = createSlice({
         state.success = true;
         console.log(action);
         state.userToken = action.payload.data.token.access_token;
-        localStorage.setItem("token", action.payload.data.token.access_token);
+        setCookie("token", action.payload.data.token.access_token);
       })
       .addCase(userSignIn.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        localStorage.removeItem("token");
+        deleteCookie("token");
       })
       .addCase(userSignUp.pending, (state) => {
         state.loading = true;
@@ -52,7 +47,7 @@ const userSlice = createSlice({
       .addCase(userSignUp.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        localStorage.removeItem("token");
+        deleteCookie("token");
       });
   },
 });
