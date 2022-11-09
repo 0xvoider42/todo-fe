@@ -13,7 +13,7 @@ const ThemeSwitcher = () => {
 
   return (
     <Button
-      variant="outlined"
+      color="secondary"
       onClick={() => {
         setMode(mode === "light" ? "dark" : "light");
       }}
