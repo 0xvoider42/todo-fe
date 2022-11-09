@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -10,22 +11,32 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
-import { userSignIn } from "../features/authentication/userAction";
-import { formInput } from "../../models/form";
 import { AppDispatch } from "../../store";
+import { formInput } from "../../models/form";
+import { userSignIn } from "../features/authentication/userAction";
 
 const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
   const dispatch: AppDispatch = useDispatch();
+  const [signIn, setSignIn] = useState(false);
 
   const { register, handleSubmit } = useForm<formInput>({
     defaultValues: { email: "", password: "" },
   });
 
+  const checkStatus = () => {
+    if (!userSignIn.fulfilled) {
+      setSignIn(false);
+    }
+    setSignIn(true);
+  };
+
   const submitHandler = (data: formInput) => {
     dispatch(userSignIn(data));
+    checkStatus();
   };
 
   return (
@@ -42,6 +53,13 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
               Sing In
             </Typography>
             <form onSubmit={handleSubmit(submitHandler)}>
+              {signIn === false ? (
+                <Alert severity="error">
+                  Email or password was wrong, try again
+                </Alert>
+              ) : (
+                setOpenSignInModal(false)
+              )}
               <Stack spacing={1} alignItems="baseline">
                 <Grid container direction="column" item xs={5}>
                   <TextField

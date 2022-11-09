@@ -1,18 +1,12 @@
 import { Box, Button, Grid, Paper, Stack, TextField } from "@mui/material";
+import { Container } from "@mui/system";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
 import { addTodo } from "../../services/queries/add-todo";
 import { ApiTodo } from "../../models/todo";
-import { Container } from "@mui/system";
 
 const NewTodo = () => {
-  let token: string;
-
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("token");
-  }
-
   const { mutate } = useMutation(addTodo);
 
   const { register, handleSubmit } = useForm({
@@ -20,7 +14,7 @@ const NewTodo = () => {
   });
 
   const submitHandler = (data: ApiTodo) => {
-    mutate({ ...data, token });
+    mutate({ ...data });
   };
 
   return (

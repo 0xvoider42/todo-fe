@@ -1,5 +1,5 @@
-import { getTodos } from "../services/queries/get-todos";
 import { ApiTodo, receiveTodo } from "../models/todo";
+import { getTodos } from "../services/queries/get-todos";
 import TodoTable from "../components/UI/TodoTable";
 
 interface Props {

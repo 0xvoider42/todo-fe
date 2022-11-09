@@ -1,5 +1,5 @@
-import { signInInitials } from "../../models/auth";
 import { api } from "../api";
+import { signInInitials } from "../../models/auth";
 
 export const signIn = (initials: signInInitials) => {
   return api.post("/authentication/signin", {

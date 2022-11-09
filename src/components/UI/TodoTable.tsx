@@ -15,12 +15,6 @@ import { receiveTodo } from "../../models/todo";
 const TodoTable: ({ todos }: { todos: receiveTodo[] }) => JSX.Element = ({
   todos,
 }) => {
-  let token: string;
-
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("token");
-  }
-
   const { mutate } = useMutation(deleteTodo);
 
   return (
@@ -41,7 +35,7 @@ const TodoTable: ({ todos }: { todos: receiveTodo[] }) => JSX.Element = ({
               <TableRow
                 key={todo.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                onClick={() => mutate({ id: todo.id, token })}
+                onClick={() => mutate({ id: todo.id })}
               >
                 <TableCell component="th" scope="row">
                   {todo.id}

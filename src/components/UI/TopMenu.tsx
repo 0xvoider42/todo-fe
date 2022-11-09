@@ -36,7 +36,7 @@ const TopMenu = () => {
             <Button
               color="inherit"
               onClick={() => {
-                if (openSignUpModal === true) {
+                if (openSignUpModal) {
                   setOpenSignUpModal(false);
                 }
                 setOpenSignInModal(!openSignInModal);

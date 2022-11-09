@@ -15,5 +15,4 @@ export type ApiTodo = {
 
 export type deleteTodoType = {
   id: number;
-  token: string;
 };

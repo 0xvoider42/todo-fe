@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-
-import { userSignUp } from "../features/authentication/userAction";
-import { formInput } from "../../models/form";
-import { AppDispatch } from "../../store";
 import { Box } from "@mui/system";
+
+import { AppDispatch } from "../../store";
+import { formInput } from "../../models/form";
+import { userSignUp } from "../features/authentication/userAction";
 
 const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
   const dispatch: AppDispatch = useDispatch();
