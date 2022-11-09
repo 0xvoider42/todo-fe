@@ -35,15 +35,15 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Paper elevation={2}>
-        <Container maxWidth="md">
+      <Container maxWidth="sm">
+        <Paper elevation={2}>
           <Box padding={2}>
             <Typography variant="h5" padding={2}>
               Sing In
             </Typography>
             <form onSubmit={handleSubmit(submitHandler)}>
               <Stack spacing={1} alignItems="baseline">
-                <Grid container direction="column" item xs={4}>
+                <Grid container direction="column" item xs={5}>
                   <TextField
                     {...register("email")}
                     fullWidth
@@ -54,7 +54,7 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
                     type="text"
                   />
                 </Grid>
-                <Grid container item xs={4}>
+                <Grid container item xs={6}>
                   <TextField
                     {...register("password")}
                     fullWidth
@@ -81,8 +81,8 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
               </Stack>
             </form>
           </Box>
-        </Container>
-      </Paper>
+        </Paper>
+      </Container>
     </Modal>
   );
 };
