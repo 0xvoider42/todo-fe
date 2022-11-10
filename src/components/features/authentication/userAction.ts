@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { signInInitials, signUpInitials } from "../../../models/auth";
+import { SignInInitials, SignUpInitials } from "../../../models/auth";
 import { signUp } from "../../../services/auth/signUp";
 import { signIn } from "../../../services/auth/singIn";
 
 export const userSignUp = createAsyncThunk(
   "user/signup",
-  async (userInitials: signUpInitials, { rejectWithValue }) => {
+  async (userInitials: SignUpInitials, { rejectWithValue }) => {
     try {
       const response = await signUp(userInitials);
       return response;
@@ -21,7 +21,7 @@ export const userSignUp = createAsyncThunk(
 
 export const userSignIn = createAsyncThunk(
   "user/signin",
-  async (userInitials: signInInitials, { rejectWithValue }) => {
+  async (userInitials: SignInInitials, { rejectWithValue }) => {
     try {
       const response = await signIn(userInitials);
       return response;

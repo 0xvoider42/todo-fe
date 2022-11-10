@@ -1,18 +1,18 @@
-export type receiveTodo = {
+export interface ReceiveTodo {
   id: number;
   title: string;
   text: string;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type ApiTodo = {
+export interface ApiTodo {
   id?: number;
   title: string;
   text: string;
   token: string;
-};
+}
 
-export type deleteTodoType = {
+export interface DeleteTodoType {
   id: number;
-};
+}

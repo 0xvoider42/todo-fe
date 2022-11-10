@@ -9,18 +9,21 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
+import { getCookie } from "cookies-next";
 import { useMutation } from "react-query";
-import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
 
 import { deleteTodo } from "../../services/queries/delete-todo";
-import { receiveTodo } from "../../models/todo";
-import { useState } from "react";
+import { ReceiveTodo } from "../../models/todo";
 
-const TodoTable: ({ todos }: { todos: receiveTodo[] }) => JSX.Element = ({
+const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   todos,
 }) => {
   const [alert, setAlert] = useState(false);
+
+  const cookies = getCookie("token");
 
   const { mutate } = useMutation(deleteTodo);
 
@@ -51,7 +54,7 @@ const TodoTable: ({ todos }: { todos: receiveTodo[] }) => JSX.Element = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {todos.map((todo: receiveTodo) => (
+            {todos.map((todo: ReceiveTodo) => (
               <TableRow
                 key={todo.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

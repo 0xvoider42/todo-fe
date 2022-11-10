@@ -7,7 +7,6 @@ const initialState = {
   loading: false,
   userInfo: {
     user: null,
-    userId: null,
   },
   userToken: "",
   error: null,
@@ -26,23 +25,21 @@ const userSlice = createSlice({
       })
       .addCase(userSignIn.fulfilled, (state, action) => {
         state.success = true;
-        console.log(action);
+        state.userInfo.user = action.payload.data.email;
         state.userToken = action.payload.data.token.access_token;
         setCookie("token", action.payload.data.token.access_token);
       })
       .addCase(userSignIn.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        deleteCookie("token");
       })
       .addCase(userSignUp.pending, (state) => {
         state.loading = true;
         state.error = false;
       })
-      .addCase(userSignUp.fulfilled, (state, action) => {
+      .addCase(userSignUp.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
-        state.userToken = action.payload.data.token.access_token;
       })
       .addCase(userSignUp.rejected, (state, action) => {
         state.loading = false;

@@ -4,12 +4,12 @@ import {
 } from "@mui/material";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { getCookie } from "cookies-next";
+import { Container } from "@mui/system";
 
 import { api } from "../services/api";
 import { store } from "../store/index";
 import TopMenu from "../components/UI/TopMenu";
-import { getCookie } from "cookies-next";
-import { Container } from "@mui/system";
 
 const queryClient = new QueryClient();
 

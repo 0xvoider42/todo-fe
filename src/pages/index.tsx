@@ -1,12 +1,12 @@
-import { ApiTodo, receiveTodo } from "../models/todo";
+import { ApiTodo, ReceiveTodo } from "../models/todo";
 import { getTodos } from "../services/queries/get-todos";
 import TodoTable from "../components/UI/TodoTable";
 
 interface Props {
-  todos: receiveTodo[];
+  todos: ReceiveTodo[];
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async () => {
   const data: ApiTodo[] = await getTodos();
 
   return {

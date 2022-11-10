@@ -1,9 +1,9 @@
-export type signUpInitials = {
+export interface SignUpInitials {
   email: string;
   password: string;
-};
+}
 
-export type signInInitials = {
+export interface SignInInitials {
   email: string;
   password: string;
-};
+}

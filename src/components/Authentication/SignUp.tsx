@@ -8,25 +8,43 @@ import {
   Link,
   Paper,
   Modal,
+  Alert,
+  Snackbar,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
 
 import { AppDispatch } from "../../store";
-import { formInput } from "../../models/form";
+import { FormInput } from "../../models/form";
 import { userSignUp } from "../features/authentication/userAction";
+import { UserState } from "../../models/userState";
 
 const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { register, handleSubmit } = useForm<formInput>({
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(false);
+
+  const { success, error } = useSelector((state: UserState) => state.user);
+
+  const { register, handleSubmit } = useForm<FormInput>({
     defaultValues: { email: "", password: "" },
   });
 
-  const submitHandler = (data: formInput) => {
+  const submitHandler = (data: FormInput) => {
     dispatch(userSignUp(data));
   };
+
+  useEffect(() => {
+    if (success) {
+      setSuccessAlert(true);
+    }
+    if (error) {
+      setErrorAlert(true);
+    }
+  }, [success, error]);
 
   return (
     <Modal
@@ -82,6 +100,18 @@ const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
             </form>
           </Box>
         </Paper>
+        {successAlert ? (
+          <Snackbar open={successAlert} autoHideDuration={2}>
+            <Alert severity="success">User have been registered</Alert>
+          </Snackbar>
+        ) : null}
+        {errorAlert ? (
+          <Snackbar open={errorAlert} autoHideDuration={2}>
+            <Alert severity="error">
+              Something went wrong, check input values
+            </Alert>
+          </Snackbar>
+        ) : null}
       </Container>
     </Modal>
   );

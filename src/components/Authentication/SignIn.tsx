@@ -7,37 +7,44 @@ import {
   Link,
   Modal,
   Paper,
+  Snackbar,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 
 import { AppDispatch } from "../../store";
-import { formInput } from "../../models/form";
+import { FormInput } from "../../models/form";
 import { userSignIn } from "../features/authentication/userAction";
+import { UserState } from "../../models/userState";
+import { useEffect, useState } from "react";
 
 const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [signIn, setSignIn] = useState(false);
 
-  const { register, handleSubmit } = useForm<formInput>({
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(false);
+
+  const { success, error } = useSelector((state: UserState) => state.user);
+
+  const { register, handleSubmit } = useForm<FormInput>({
     defaultValues: { email: "", password: "" },
   });
 
-  const checkStatus = () => {
-    if (!userSignIn.fulfilled) {
-      setSignIn(false);
-    }
-    setSignIn(true);
+  const submitHandler = (data: FormInput) => {
+    dispatch(userSignIn(data));
   };
 
-  const submitHandler = (data: formInput) => {
-    dispatch(userSignIn(data));
-    checkStatus();
-  };
+  useEffect(() => {
+    if (success) {
+      setSuccessAlert(true);
+    }
+    if (error) {
+      setErrorAlert(true);
+    }
+  }, [success, error]);
 
   return (
     <Modal
@@ -53,13 +60,6 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
               Sing In
             </Typography>
             <form onSubmit={handleSubmit(submitHandler)}>
-              {signIn === false ? (
-                <Alert severity="error">
-                  Email or password was wrong, try again
-                </Alert>
-              ) : (
-                setOpenSignInModal(false)
-              )}
               <Stack spacing={1} alignItems="baseline">
                 <Grid container direction="column" item xs={5}>
                   <TextField
@@ -100,6 +100,18 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
             </form>
           </Box>
         </Paper>
+        {successAlert ? (
+          <Snackbar open={successAlert} autoHideDuration={2}>
+            <Alert severity="success">Sign in successful</Alert>
+          </Snackbar>
+        ) : null}
+        {errorAlert ? (
+          <Snackbar open={errorAlert} autoHideDuration={2}>
+            <Alert severity="error">
+              Something went wrong, check input values
+            </Alert>
+          </Snackbar>
+        ) : null}
       </Container>
     </Modal>
   );
