@@ -16,7 +16,6 @@
     "cookies-next": "^2.1.1",
     "cors": "^2.8.5",
     "next": "^13.0.0",
-    "nookies": "^2.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.38.0",

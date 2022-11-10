@@ -9,6 +9,7 @@ import { api } from "../services/api";
 import { store } from "../store/index";
 import TopMenu from "../components/UI/TopMenu";
 import { getCookie } from "cookies-next";
+import { Container } from "@mui/system";
 
 const queryClient = new QueryClient();
 
@@ -19,10 +20,12 @@ const MyApp = ({ Component, pageProps }) => {
     <Provider store={store}>
       <CssVarsProvider>
         <QueryClientProvider client={queryClient}>
-          <Stack spacing={1}>
-            <TopMenu />
-            <Component {...pageProps} />
-          </Stack>
+          <TopMenu />
+          <Container maxWidth="md">
+            <Stack spacing={1} padding={2}>
+              <Component {...pageProps} />
+            </Stack>
+          </Container>
         </QueryClientProvider>
       </CssVarsProvider>
     </Provider>
