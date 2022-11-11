@@ -28,9 +28,7 @@ const TodoTable: ({
 
   const { mutate } = useMutation(deleteTodo);
 
-  if (checkTokenValidity(token)) {
-    console.log("Token is valid");
-  }
+  checkTokenValidity(token);
 
   return (
     <Paper elevation={2}>
@@ -55,7 +53,9 @@ const TodoTable: ({
               <TableCell align="right">Text</TableCell>
               <TableCell align="right">Created</TableCell>
               <TableCell align="right">Updated</TableCell>
-              <TableCell align="right">Delete</TableCell>
+              {!checkTokenValidity(token) ? (
+                <TableCell align="right">Delete</TableCell>
+              ) : null}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,19 +71,21 @@ const TodoTable: ({
                 <TableCell align="right">{todo.text}</TableCell>
                 <TableCell align="right">{todo.createdAt}</TableCell>
                 <TableCell align="right">{todo.updatedAt}</TableCell>
-                <TableCell align="right">
-                  <IconButton
-                    aria-label="delete"
-                    size="medium"
-                    color="error"
-                    onClick={() => {
-                      mutate({ id: todo.id });
-                      setAlert(true);
-                    }}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </TableCell>
+                {!checkTokenValidity(token) ? (
+                  <TableCell align="right">
+                    <IconButton
+                      aria-label="delete"
+                      size="medium"
+                      color="error"
+                      onClick={() => {
+                        mutate({ id: todo.id });
+                        setAlert(true);
+                      }}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                ) : null}
               </TableRow>
             ))}
           </TableBody>

@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { getCookie } from "cookies-next";
 import { Container } from "@mui/system";
+import App from "next/app";
 
 import { api } from "../services/api";
 import { store } from "../store/index";
@@ -13,24 +14,14 @@ import TopMenu from "../components/UI/TopMenu";
 
 const queryClient = new QueryClient();
 
-export const getServerSideProps = async (ctx) => {
-  const token = ctx.req.headers.cookie.split("token=", 2)[1];
-
-  return {
-    props: {
-      token,
-    },
-  };
-};
-
-const MyApp = ({ Component, pageProps, token }) => {
+const MyApp = ({ Component, pageProps }) => {
   api.defaults.headers.common["Authorization"] = `Bearer ${getCookie("token")}`;
 
   return (
     <Provider store={store}>
       <CssVarsProvider>
         <QueryClientProvider client={queryClient}>
-          <TopMenu token={token} />
+          <TopMenu token={pageProps.token} />
           <Container maxWidth="md">
             <Stack spacing={1} padding={2}>
               <Component {...pageProps} />
@@ -40,6 +31,25 @@ const MyApp = ({ Component, pageProps, token }) => {
       </CssVarsProvider>
     </Provider>
   );
+};
+
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  let pageProps: any = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await App.getInitialProps(ctx);
+  }
+
+  console.log(pageProps);
+
+  const token = getCookie("token", { req: ctx.req, res: ctx.res });
+
+  return {
+    props: {
+      ...pageProps,
+      token,
+    },
+  };
 };
 
 export default MyApp;

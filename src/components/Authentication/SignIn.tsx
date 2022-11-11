@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import Router from "next/router";
 
 import { AppDispatch } from "../../store";
 import { FormInput } from "../../models/form";
@@ -35,6 +36,7 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
 
   const submitHandler = (data: FormInput) => {
     dispatch(userSignIn(data));
+    Router.reload();
   };
 
   useEffect(() => {

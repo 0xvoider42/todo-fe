@@ -5,8 +5,9 @@ import { useMutation } from "react-query";
 
 import { addTodo } from "../../services/queries/add-todo";
 import { ApiTodo } from "../../models/todo";
+import { checkTokenValidity } from "../features/tokenValidityCheck";
 
-const NewTodo = () => {
+const NewTodo = ({ token }) => {
   const { mutate } = useMutation(addTodo);
 
   const { register, handleSubmit } = useForm({
@@ -16,6 +17,8 @@ const NewTodo = () => {
   const submitHandler = (data: ApiTodo) => {
     mutate({ ...data });
   };
+
+  checkTokenValidity(token);
 
   return (
     <Paper elevation={2}>

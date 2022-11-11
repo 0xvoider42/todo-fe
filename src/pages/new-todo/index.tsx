@@ -11,8 +11,7 @@ export const getServerSideProps = async (ctx) => {
 };
 
 const NewTodoPage = ({ token }) => {
-  console.log(token);
-  return <NewTodo />;
+  return <NewTodo token={token} />;
 };
 
 export default NewTodoPage;
