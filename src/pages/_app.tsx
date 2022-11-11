@@ -13,14 +13,24 @@ import TopMenu from "../components/UI/TopMenu";
 
 const queryClient = new QueryClient();
 
-const MyApp = ({ Component, pageProps }) => {
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req.headers.cookie.split("token=", 2)[1];
+
+  return {
+    props: {
+      token,
+    },
+  };
+};
+
+const MyApp = ({ Component, pageProps, token }) => {
   api.defaults.headers.common["Authorization"] = `Bearer ${getCookie("token")}`;
 
   return (
     <Provider store={store}>
       <CssVarsProvider>
         <QueryClientProvider client={queryClient}>
-          <TopMenu />
+          <TopMenu token={token} />
           <Container maxWidth="md">
             <Stack spacing={1} padding={2}>
               <Component {...pageProps} />

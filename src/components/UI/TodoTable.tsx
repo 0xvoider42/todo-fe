@@ -9,7 +9,6 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
-import { getCookie } from "cookies-next";
 import { useMutation } from "react-query";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,15 +16,21 @@ import IconButton from "@mui/material/IconButton";
 
 import { deleteTodo } from "../../services/queries/delete-todo";
 import { ReceiveTodo } from "../../models/todo";
+import { checkTokenValidity } from "../features/tokenValidityCheck";
 
-const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
+const TodoTable: ({
   todos,
-}) => {
+}: {
+  todos: ReceiveTodo[];
+  token: string;
+}) => JSX.Element = ({ todos, token }) => {
   const [alert, setAlert] = useState(false);
 
-  const cookies = getCookie("token");
-
   const { mutate } = useMutation(deleteTodo);
+
+  if (checkTokenValidity(token)) {
+    console.log("Token is valid");
+  }
 
   return (
     <Paper elevation={2}>

@@ -1,18 +1,15 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import { getCookie } from "cookies-next";
 import { useState } from "react";
 
 import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-const TopMenu = () => {
+const TopMenu = ({ token }) => {
   const [openSignInModal, setOpenSignInModal] = useState(false);
   const [openSignUpModal, setOpenSignUpModal] = useState(false);
 
-  const cookies = getCookie("token");
-
-  console.log(cookies);
+  console.log("TOKEN", token);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
