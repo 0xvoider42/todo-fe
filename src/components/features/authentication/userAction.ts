@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getCookie } from "cookies-next";
 
 import { SignInInitials, SignUpInitials } from "../../../models/auth";
 import { signUp } from "../../../services/auth/signUp";
@@ -30,6 +31,17 @@ export const userSignIn = createAsyncThunk(
         return rejectWithValue(error.response.data.message);
       }
       return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const userInfo = createAsyncThunk(
+  "user/info",
+  async (userInitials: SignInInitials, { rejectWithValue }) => {
+    try {
+      return getCookie("token");
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );

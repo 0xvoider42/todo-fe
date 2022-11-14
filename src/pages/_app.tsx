@@ -17,11 +17,15 @@ const queryClient = new QueryClient();
 const MyApp = ({ Component, pageProps }) => {
   api.defaults.headers.common["Authorization"] = `Bearer ${getCookie("token")}`;
 
+  const addToken = (payload) => ({ type: "GET_TOKEN", payload });
+
+  const token = store.dispatch(addToken(getCookie("token")));
+
   return (
     <Provider store={store}>
       <CssVarsProvider>
         <QueryClientProvider client={queryClient}>
-          <TopMenu token={pageProps.token} />
+          <TopMenu token={token} />
           <Container maxWidth="md">
             <Stack spacing={1} padding={2}>
               <Component {...pageProps} />
@@ -39,8 +43,6 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
   if (Component.getInitialProps) {
     pageProps = await App.getInitialProps(ctx);
   }
-
-  console.log(pageProps);
 
   const token = getCookie("token", { req: ctx.req, res: ctx.res });
 

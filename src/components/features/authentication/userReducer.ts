@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { deleteCookie, setCookie } from "cookies-next";
 
-import { userSignIn, userSignUp } from "./userAction";
+import { userInfo, userSignIn, userSignUp } from "./userAction";
 
 const initialState = {
   loading: false,
@@ -45,6 +45,9 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         deleteCookie("token");
+      })
+      .addCase(userInfo.fulfilled, (state, action) => {
+        state.userToken = action.payload.toString();
       });
   },
 });
