@@ -15,7 +15,6 @@ import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
 
 import { AppDispatch } from "../../store";
 import { FormInput } from "../../models/form";
@@ -36,7 +35,6 @@ const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
 
   const submitHandler = (data: FormInput) => {
     dispatch(userSignUp(data));
-    Router.reload();
   };
 
   useEffect(() => {

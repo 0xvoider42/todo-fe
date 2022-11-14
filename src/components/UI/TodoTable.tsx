@@ -16,19 +16,16 @@ import IconButton from "@mui/material/IconButton";
 
 import { deleteTodo } from "../../services/queries/delete-todo";
 import { ReceiveTodo } from "../../models/todo";
-import { checkTokenValidity } from "../features/tokenValidityCheck";
+import useUserInfo from "../../hooks/useUserInfo";
 
-const TodoTable: ({
+const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   todos,
-}: {
-  todos: ReceiveTodo[];
-  token: string;
-}) => JSX.Element = ({ todos, token }) => {
+}) => {
   const [alert, setAlert] = useState(false);
 
-  const { mutate } = useMutation(deleteTodo);
+  const { isLoggedIn } = useUserInfo();
 
-  checkTokenValidity(token);
+  const { mutate } = useMutation(deleteTodo);
 
   return (
     <Paper elevation={2}>
@@ -53,9 +50,7 @@ const TodoTable: ({
               <TableCell align="right">Text</TableCell>
               <TableCell align="right">Created</TableCell>
               <TableCell align="right">Updated</TableCell>
-              {!checkTokenValidity(token) ? (
-                <TableCell align="right">Delete</TableCell>
-              ) : null}
+              {isLoggedIn && <TableCell align="right">Delete</TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,7 +66,7 @@ const TodoTable: ({
                 <TableCell align="right">{todo.text}</TableCell>
                 <TableCell align="right">{todo.createdAt}</TableCell>
                 <TableCell align="right">{todo.updatedAt}</TableCell>
-                {!checkTokenValidity(token) ? (
+                {isLoggedIn && (
                   <TableCell align="right">
                     <IconButton
                       aria-label="delete"
@@ -85,7 +80,7 @@ const TodoTable: ({
                       <DeleteIcon fontSize="small" />
                     </IconButton>
                   </TableCell>
-                ) : null}
+                )}
               </TableRow>
             ))}
           </TableBody>

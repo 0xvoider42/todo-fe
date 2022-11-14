@@ -4,7 +4,7 @@ import SignIn from "../Authentication/SignIn";
 import SignUp from "../Authentication/SignUp";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-const NonAuthTodoMenu = ({ token }) => {
+const NonAuthTodoMenu = () => {
   const [openSignInModal, setOpenSignInModal] = useState(false);
   const [openSignUpModal, setOpenSignUpModal] = useState(false);
 

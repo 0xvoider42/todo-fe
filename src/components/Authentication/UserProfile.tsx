@@ -9,22 +9,17 @@ import {
   Typography,
 } from "@mui/material";
 import { deleteCookie } from "cookies-next";
-import { useEffect, useState } from "react";
-import Router from "next/router";
+import { useState } from "react";
+import { api } from "../../services/api";
 
 const UserProfile = ({ openUserModal, setOpenUserModal }) => {
   const [signOutAlert, setSignOutAlert] = useState(false);
 
   const handleSignOut = () => {
     deleteCookie("token");
-    Router.reload();
+    delete api.defaults.headers.common["Authorization"];
+    setSignOutAlert(true);
   };
-
-  useEffect(() => {
-    if (handleSignOut) {
-      setSignOutAlert(true);
-    }
-  }, []);
 
   return (
     <Modal

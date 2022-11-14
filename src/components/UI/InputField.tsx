@@ -9,23 +9,18 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import Router from "next/router";
 
 import { ApiTodo } from "../../models/todo";
 import { editTodo } from "../../services/queries/edit-todo";
-import { checkTokenValidity } from "../features/tokenValidityCheck";
 
-const UpdateTodo = ({ token }) => {
+const UpdateTodo = () => {
   const { mutate } = useMutation(editTodo);
 
   const { register, handleSubmit } = useForm({});
 
   const submitHandler = (data: ApiTodo) => {
     mutate({ ...data });
-    Router.reload();
   };
-
-  checkTokenValidity(token);
 
   return (
     <Paper elevation={2}>

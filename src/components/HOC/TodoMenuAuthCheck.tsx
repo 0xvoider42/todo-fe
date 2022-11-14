@@ -1,11 +1,18 @@
-const withConditionalAuth = (Auth, NonAuth, props) => {
-  if (props) {
-    return <Auth token={props} />;
-  }
+import useUserInfo from "../../hooks/useUserInfo";
 
-  if (!props) {
-    return <NonAuth token={props} />;
-  }
+const withConditionalAuth = (Auth, NonAuth) => {
+  const route = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { isLoggedIn } = useUserInfo();
+
+    if (isLoggedIn) {
+      return <Auth />;
+    }
+
+    return <NonAuth />;
+  };
+
+  return route;
 };
 
 export default withConditionalAuth;

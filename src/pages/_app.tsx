@@ -11,21 +11,20 @@ import App from "next/app";
 import { api } from "../services/api";
 import { store } from "../store/index";
 import TopMenu from "../components/UI/TopMenu";
+import { setUserToken } from "../components/features/authentication/userReducer";
 
 const queryClient = new QueryClient();
 
 const MyApp = ({ Component, pageProps }) => {
-  api.defaults.headers.common["Authorization"] = `Bearer ${getCookie("token")}`;
+  api.defaults.headers.common["Authorization"] = `Bearer ${pageProps.token}`;
 
-  const addToken = (payload) => ({ type: "GET_TOKEN", payload });
-
-  const token = store.dispatch(addToken(getCookie("token")));
+  store.dispatch(setUserToken(pageProps.token));
 
   return (
     <Provider store={store}>
       <CssVarsProvider>
         <QueryClientProvider client={queryClient}>
-          <TopMenu token={token} />
+          <TopMenu />
           <Container maxWidth="md">
             <Stack spacing={1} padding={2}>
               <Component {...pageProps} />
@@ -43,7 +42,6 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
   if (Component.getInitialProps) {
     pageProps = await App.getInitialProps(ctx);
   }
-
   const token = getCookie("token", { req: ctx.req, res: ctx.res });
 
   return {

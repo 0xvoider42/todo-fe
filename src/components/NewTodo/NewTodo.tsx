@@ -6,7 +6,7 @@ import { useMutation } from "react-query";
 import { addTodo } from "../../services/queries/add-todo";
 import { ApiTodo } from "../../models/todo";
 
-const NewTodo = ({ token }) => {
+const NewTodo = () => {
   const { mutate } = useMutation(addTodo);
 
   const { register, handleSubmit } = useForm({

@@ -3,7 +3,7 @@ import { useState } from "react";
 import UserProfile from "../Authentication/UserProfile";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-const AuthTodoMenu = ({ token }) => {
+const AuthTodoMenu = () => {
   const [openUserModal, setOpenUserModal] = useState(false);
 
   return (
