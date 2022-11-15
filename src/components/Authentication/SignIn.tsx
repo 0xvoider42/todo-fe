@@ -97,7 +97,7 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
                     <Button type="submit" variant="contained">
                       Sign In
                     </Button>
-                    <Link underline="none" href="/signup">
+                    <Link underline="none" href="/auth">
                       <Button color="secondary" variant="outlined">
                         Sign Up
                       </Button>

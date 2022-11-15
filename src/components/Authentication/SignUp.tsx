@@ -3,7 +3,6 @@ import {
   Button,
   Container,
   Grid,
-  Link,
   Modal,
   Paper,
   Snackbar,
@@ -89,11 +88,6 @@ const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
                     <Button type="submit" variant="contained">
                       Sign Up
                     </Button>
-                    <Link underline="none" href="/signin">
-                      <Button color="secondary" variant="outlined">
-                        Sign In
-                      </Button>
-                    </Link>
                   </Stack>
                 </Box>
               </Stack>

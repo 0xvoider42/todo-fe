@@ -10,7 +10,7 @@ const withAuthRedirect = (Component) => {
       return <Component {...props} />;
     }
 
-    typeof window !== "undefined" && Router.push("/");
+    typeof window !== "undefined" && Router.push("/auth");
 
     return <Component {...props} />;
   };
