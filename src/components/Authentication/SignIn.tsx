@@ -37,6 +37,14 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
     dispatch(userSignIn(data));
   };
 
+  const handleSuccessClose = () => {
+    setSuccessAlert(false);
+  };
+
+  const handleFailureClose = () => {
+    setErrorAlert(false);
+  };
+
   useEffect(() => {
     if (success) {
       setSuccessAlert(true);
@@ -101,12 +109,20 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
           </Box>
         </Paper>
         {successAlert ? (
-          <Snackbar open={successAlert} autoHideDuration={2}>
+          <Snackbar
+            open={successAlert}
+            autoHideDuration={1500}
+            onClose={handleSuccessClose}
+          >
             <Alert severity="success">Sign in successful</Alert>
           </Snackbar>
         ) : null}
         {errorAlert ? (
-          <Snackbar open={errorAlert} autoHideDuration={2}>
+          <Snackbar
+            open={errorAlert}
+            autoHideDuration={1500}
+            onClose={handleFailureClose}
+          >
             <Alert severity="error">
               Something went wrong, check input values
             </Alert>

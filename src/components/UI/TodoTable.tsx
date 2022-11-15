@@ -27,10 +27,14 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
 
   const { mutate } = useMutation(deleteTodo);
 
+  const handleClose = () => {
+    setAlert(false);
+  };
+
   return (
     <Paper elevation={2}>
       {alert ? (
-        <Snackbar open={alert} autoHideDuration={3000}>
+        <Snackbar open={alert} autoHideDuration={3000} onClose={handleClose}>
           <Alert
             severity="error"
             onClose={() => {

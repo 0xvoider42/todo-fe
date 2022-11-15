@@ -21,6 +21,10 @@ const UserProfile = ({ openUserModal, setOpenUserModal }) => {
     setSignOutAlert(true);
   };
 
+  const handleClose = () => {
+    setSignOutAlert(false);
+  };
+
   return (
     <Modal
       open={openUserModal}
@@ -36,7 +40,11 @@ const UserProfile = ({ openUserModal, setOpenUserModal }) => {
             </Typography>
             <Button onClick={handleSignOut}>Sign out</Button>
           </Box>
-          <Snackbar open={signOutAlert} autoHideDuration={2}>
+          <Snackbar
+            open={signOutAlert}
+            autoHideDuration={1500}
+            onClose={handleClose}
+          >
             <Alert severity="success">you have been signed out</Alert>
           </Snackbar>
         </Paper>

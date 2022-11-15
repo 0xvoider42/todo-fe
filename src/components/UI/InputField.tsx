@@ -1,14 +1,16 @@
 import {
+  Alert,
   Box,
   Button,
   Container,
   Grid,
   Paper,
+  Snackbar,
   Stack,
   TextField,
 } from "@mui/material";
 import Router from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import useUserInfo from "../../hooks/useUserInfo";
@@ -18,6 +20,7 @@ import { editTodo } from "../../services/queries/edit-todo";
 
 const UpdateTodo = () => {
   const { mutate } = useMutation(editTodo);
+  const [open, setOpen] = useState(false);
 
   const { isLoggedIn } = useUserInfo();
 
@@ -25,6 +28,11 @@ const UpdateTodo = () => {
 
   const submitHandler = (data: ApiTodo) => {
     mutate({ ...data });
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -78,6 +86,15 @@ const UpdateTodo = () => {
               </Grid>
             </Stack>
           </form>
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              The Todo has been edited!
+            </Alert>
+          </Snackbar>
         </Box>
       </Container>
     </Paper>
