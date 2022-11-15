@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { getCookie } from "cookies-next";
 import { Container } from "@mui/system";
-import App from "next/app";
 
 import { api } from "../services/api";
 import { store } from "../store/index";
@@ -15,10 +14,10 @@ import { setUserToken } from "../components/features/authentication/userReducer"
 
 const queryClient = new QueryClient();
 
-const MyApp = ({ Component, pageProps }) => {
-  api.defaults.headers.common["Authorization"] = `Bearer ${pageProps.token}`;
+const MyApp = ({ Component, token, pageProps }) => {
+  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  store.dispatch(setUserToken(pageProps.token));
+  store.dispatch(setUserToken(token));
 
   return (
     <Provider store={store}>
@@ -36,19 +35,11 @@ const MyApp = ({ Component, pageProps }) => {
   );
 };
 
-MyApp.getInitialProps = async ({ Component, ctx }) => {
-  let pageProps: any = {};
-
-  if (Component.getInitialProps) {
-    pageProps = await App.getInitialProps(ctx);
-  }
+MyApp.getInitialProps = async ({ ctx }) => {
   const token = getCookie("token", { req: ctx.req, res: ctx.res });
 
   return {
-    props: {
-      ...pageProps,
-      token,
-    },
+    token,
   };
 };
 

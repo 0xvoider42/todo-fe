@@ -1,13 +1,18 @@
 import { Box, Button, Grid, Paper, Stack, TextField } from "@mui/material";
 import { Container } from "@mui/system";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
+import Router from "next/router";
 
 import { addTodo } from "../../services/queries/add-todo";
 import { ApiTodo } from "../../models/todo";
+import useUserInfo from "../../hooks/useUserInfo";
 
 const NewTodo = () => {
   const { mutate } = useMutation(addTodo);
+
+  const { isLoggedIn } = useUserInfo();
 
   const { register, handleSubmit } = useForm({
     defaultValues: { title: "", text: "" },
@@ -16,6 +21,12 @@ const NewTodo = () => {
   const submitHandler = (data: ApiTodo) => {
     mutate({ ...data });
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      Router.push("/");
+    }
+  });
 
   return (
     <Paper elevation={2}>
