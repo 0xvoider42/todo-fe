@@ -1,7 +1,8 @@
+import withAuthRedirect from "../../components/HOC/AuthRedirect";
 import NewTodo from "../../components/NewTodo/NewTodo";
 
 const NewTodoPage = () => {
   return <NewTodo />;
 };
 
-export default NewTodoPage;
+export default withAuthRedirect(NewTodoPage);

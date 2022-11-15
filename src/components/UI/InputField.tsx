@@ -9,11 +9,9 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import Router from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import useUserInfo from "../../hooks/useUserInfo";
 
 import { ApiTodo } from "../../models/todo";
 import { editTodo } from "../../services/queries/edit-todo";
@@ -21,8 +19,6 @@ import { editTodo } from "../../services/queries/edit-todo";
 const UpdateTodo = () => {
   const { mutate } = useMutation(editTodo);
   const [open, setOpen] = useState(false);
-
-  const { isLoggedIn } = useUserInfo();
 
   const { register, handleSubmit } = useForm({});
 
@@ -34,13 +30,6 @@ const UpdateTodo = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      Router.push("/");
-      console.log("not logged");
-    }
-  });
 
   return (
     <Paper elevation={2}>

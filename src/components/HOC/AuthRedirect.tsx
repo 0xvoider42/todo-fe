@@ -1,23 +1,21 @@
+import Router from "next/router";
 import useUserInfo from "../../hooks/useUserInfo";
-import SignIn from "../Authentication/SignIn";
-import SignUp from "../Authentication/SignUp";
-import TodoTable from "../UI/TodoTable";
 
-const withAuthRedirect = ({ todos }) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { isLoggedIn } = useUserInfo();
+const withAuthRedirect = (Component) => {
+  const route = (props) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { isLoggedIn } = useUserInfo();
 
-  if (!isLoggedIn) {
-    return <TodoTable todos={todos} />;
-  }
+    if (isLoggedIn) {
+      return <Component {...props} />;
+    }
 
-  return (
-    <>
-      <SignIn openSignInModal={false} setOpenSignInModal={true} />
-      <SignUp openSignUpModal={false} setOpenSignUpModal={true} />
-      <TodoTable todos={todos} />
-    </>
-  );
+    typeof window !== "undefined" && Router.push("/");
+
+    return <Component {...props} />;
+  };
+
+  return route;
 };
 
 export default withAuthRedirect;

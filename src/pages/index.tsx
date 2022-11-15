@@ -1,6 +1,7 @@
 import { ApiTodo, ReceiveTodo } from "../models/todo";
 import { getTodos } from "../services/queries/get-todos";
 import withAuthRedirect from "../components/HOC/AuthRedirect";
+import TodoTable from "../components/UI/TodoTable";
 
 interface Props {
   todos: ReceiveTodo[];
@@ -17,7 +18,7 @@ export const getServerSideProps = async (ctx) => {
 };
 
 const HomePage = ({ todos }: Props) => {
-  return withAuthRedirect({ todos });
+  return <TodoTable todos={todos} />;
 };
 
-export default HomePage;
+export default withAuthRedirect(HomePage);
