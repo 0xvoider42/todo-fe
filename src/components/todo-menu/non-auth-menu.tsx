@@ -1,8 +1,8 @@
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { useState } from "react";
 
-import SignIn from "../authentication/sign-in";
-import SignUp from "../authentication/sign-up";
+import SignIn from "../authentication/sign-in-modal";
+import SignUp from "../authentication/sign-up-modal";
 import ThemeSwitcher from "../ui/theme-switcher";
 
 const NonAuthTodoMenu = () => {
@@ -32,8 +32,7 @@ const NonAuthTodoMenu = () => {
               color="inherit"
               onClick={() => {
                 if (openSignUpModal) {
-                  setOpenSignUpModal(false);
-                  return;
+                  return setOpenSignUpModal(false);
                 }
                 setOpenSignInModal(!openSignInModal);
               }}

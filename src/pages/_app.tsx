@@ -2,16 +2,16 @@ import {
   Experimental_CssVarsProvider as CssVarsProvider,
   Stack,
 } from "@mui/material";
+import { Container } from "@mui/system";
+import { getCookie } from "cookies-next";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { getCookie } from "cookies-next";
-import { Container } from "@mui/system";
+import { SnackbarProvider } from "material-ui-snackbar-provider";
 
 import { api } from "../services/api";
+import { setUserToken } from "../store/authentication/user-reducer";
 import { store } from "../store/index";
 import TopMenu from "../components/todo-menu/top-menu";
-import { setUserToken } from "../store/authentication/user-reducer";
-import { SnackbarProvider } from "material-ui-snackbar-provider";
 
 const queryClient = new QueryClient();
 

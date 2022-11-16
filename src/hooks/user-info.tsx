@@ -1,6 +1,7 @@
+import { useSelector } from "react-redux";
+
 import { checkTokenValidity } from "../utils/token-validity-check";
 import { RootState } from "../store";
-import { useSelector } from "react-redux";
 
 const useUserInfo = () => {
   let isLoggedIn = true;

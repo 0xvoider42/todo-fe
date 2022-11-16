@@ -2,7 +2,7 @@ import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { useState } from "react";
 
 import ThemeSwitcher from "../ui/theme-switcher";
-import UserProfile from "../authentication/user-profile";
+import UserProfile from "../authentication/user-profile-modal";
 
 const AuthTodoMenu = () => {
   const [openUserModal, setOpenUserModal] = useState(false);
@@ -33,8 +33,7 @@ const AuthTodoMenu = () => {
               color="secondary"
               onClick={() => {
                 if (openUserModal) {
-                  setOpenUserModal(false);
-                  return;
+                  return setOpenUserModal(false);
                 }
                 setOpenUserModal(true);
               }}

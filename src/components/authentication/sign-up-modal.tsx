@@ -1,15 +1,14 @@
 import {
-  Box,
   Button,
   Container,
   Grid,
-  Link,
   Modal,
   Paper,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -17,10 +16,10 @@ import { useSnackbar } from "material-ui-snackbar-provider";
 
 import { AppDispatch } from "../../store";
 import { FormInput } from "../../models/form";
-import { userSignIn } from "../../store/authentication/user-action";
+import { userSignUp } from "../../store/authentication/user-action";
 import { UserState } from "../../models/user-state";
 
-const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
+const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const snackbar = useSnackbar();
@@ -32,22 +31,22 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
   });
 
   const submitHandler = (data: FormInput) => {
-    dispatch(userSignIn(data));
+    dispatch(userSignUp(data));
   };
 
   useEffect(() => {
     if (success) {
-      snackbar.showMessage("You have been signed in!");
+      snackbar.showMessage("You have been registered!");
     }
     if (error) {
       snackbar.showMessage("Something went wrong!");
     }
-  });
+  }, [success, error]);
 
   return (
     <Modal
-      open={openSignInModal}
-      onClose={() => setOpenSignInModal(false)}
+      open={openSignUpModal}
+      onClose={() => setOpenSignUpModal(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -55,7 +54,7 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
         <Paper elevation={2}>
           <Box padding={2}>
             <Typography variant="h5" padding={2}>
-              Sing In
+              Sign Up
             </Typography>
             <form onSubmit={handleSubmit(submitHandler)}>
               <Stack spacing={1} alignItems="baseline">
@@ -83,15 +82,10 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
                   />
                 </Grid>
                 <Box padding={1}>
-                  <Stack direction="row" spacing={2}>
+                  <Stack spacing={2} direction="row">
                     <Button type="submit" variant="contained">
-                      Sign In
+                      Sign Up
                     </Button>
-                    <Link underline="none" href="/auth">
-                      <Button color="secondary" variant="outlined">
-                        Sign Up
-                      </Button>
-                    </Link>
                   </Stack>
                 </Box>
               </Stack>
@@ -103,4 +97,4 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
   );
 };
 
-export default SignIn;
+export default SignUp;

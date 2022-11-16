@@ -14,18 +14,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 
 import { deleteTodo } from "../services/queries/delete-todo";
-import { ApiTodo, ReceiveTodo } from "../models/todo";
+import { ReceiveTodo } from "../models/todo";
 import useUserInfo from "../hooks/user-info";
 import { useState } from "react";
 import { getTodos } from "../services/queries/get-todos";
 import withAuthRedirect from "../hoc/auth-redirect";
 
-export const getServerSideProps = async (ctx) => {
-  const data: ApiTodo[] = await getTodos();
+export const getServerSideProps = async () => {
+  const data = await getTodos();
 
   return {
     props: {
-      todos: data,
+      todos: data.data,
     },
   };
 };
@@ -33,7 +33,7 @@ export const getServerSideProps = async (ctx) => {
 const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   todos,
 }) => {
-  const [Todos, setTodos] = useState(todos);
+  const [todoTable, setTodoTable] = useState(todos);
   const { isLoggedIn } = useUserInfo();
 
   const snackbar = useSnackbar();
@@ -41,8 +41,10 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   const { mutate } = useMutation(deleteTodo);
 
   const handleDelete = (id) => {
-    Todos.splice(id, 1);
-    setTodos(Todos);
+    const index = todoTable.find((el) => el.id === id);
+    console.log(typeof index);
+    todoTable.splice(index, 1);
+    setTodoTable(todoTable);
   };
 
   return (
@@ -60,7 +62,7 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {Todos.map((todo: ReceiveTodo) => (
+            {todoTable.map((todo: ReceiveTodo) => (
               <TableRow
                 key={todo.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

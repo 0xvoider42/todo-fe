@@ -1,8 +1,14 @@
-import withConditionalAuth from "../../hoc/todo-menu-auth-check";
+import useUserInfo from "../../hooks/user-info";
 import AuthTodoMenu from "./auth-menu";
+import NonAuthTodoMenu from "./non-auth-menu";
 
 const TopMenu = () => {
-  return <AuthTodoMenu />;
+  const { isLoggedIn } = useUserInfo();
+
+  if (isLoggedIn) {
+    return <AuthTodoMenu />;
+  }
+  return <NonAuthTodoMenu />;
 };
 
-export default withConditionalAuth(TopMenu);
+export default TopMenu;

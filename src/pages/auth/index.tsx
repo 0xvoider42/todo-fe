@@ -40,14 +40,14 @@ const AuthPage = () => {
     if (error) {
       snackbar.showMessage("Something went wrong!");
     }
-  });
+  }, [success, error]);
 
   return (
     <Container maxWidth="sm">
       <Paper elevation={2}>
         <Box padding={2}>
           <Typography variant="h5" padding={2}>
-            Sing Up
+            Sign Up
           </Typography>
           <form onSubmit={handleSubmit(submitHandler)}>
             <Stack spacing={1} alignItems="baseline">

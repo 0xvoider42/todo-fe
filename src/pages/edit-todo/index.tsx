@@ -10,20 +10,22 @@ import {
 import { useSnackbar } from "material-ui-snackbar-provider";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import withAuthRedirect from "../../hoc/auth-redirect";
 
 import { ApiTodo } from "../../models/todo";
 import { editTodo } from "../../services/queries/edit-todo";
+import withAuthRedirect from "../../hoc/auth-redirect";
 
 const UpdateTodo = () => {
   const { mutate } = useMutation(editTodo);
 
   const snackbar = useSnackbar();
 
-  const { register, handleSubmit } = useForm({});
+  const { register, handleSubmit } = useForm({
+    defaultValues: { id: 0, title: "", text: "", token: "" },
+  });
 
   const submitHandler = (data: ApiTodo) => {
-    mutate({ ...data });
+    mutate(data);
     snackbar.showMessage("Todo has been edited!");
   };
 

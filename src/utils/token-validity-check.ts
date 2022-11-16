@@ -1,6 +1,6 @@
 export const checkTokenValidity = (token: string) => {
   if (!token) {
-    return "token has expired";
+    return true;
   }
 
   return (
