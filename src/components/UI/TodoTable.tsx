@@ -1,52 +1,41 @@
 import {
-  Alert,
   Paper,
-  Snackbar,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import { useMutation } from "react-query";
-import { useState } from "react";
+import { useSnackbar } from "material-ui-snackbar-provider";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 
 import { deleteTodo } from "../../services/queries/delete-todo";
 import { ReceiveTodo } from "../../models/todo";
 import useUserInfo from "../../hooks/useUserInfo";
+import { useState } from "react";
 
 const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   todos,
 }) => {
-  const [alert, setAlert] = useState(false);
-
+  const [Todos, setTodos] = useState(todos);
   const { isLoggedIn } = useUserInfo();
+
+  const snackbar = useSnackbar();
 
   const { mutate } = useMutation(deleteTodo);
 
-  const handleClose = () => {
-    setAlert(false);
+  const handleDelete = (id) => {
+    setTodos((prevTodos) => prevTodos.filter((_, index) => index !== id));
   };
 
   return (
-    <Paper elevation={2}>
-      {alert && (
-        <Snackbar open={alert} autoHideDuration={3000} onClose={handleClose}>
-          <Alert
-            severity="error"
-            onClose={() => {
-              setAlert(false);
-            }}
-          >
-            Todo has been deleted
-          </Alert>
-        </Snackbar>
-      )}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <Paper elevation={2} sx={{ width: "100%", overflow: "hidden" }}>
+      <TableContainer sx={{ minWidth: 650, maxHeight: 600 }}>
+        <Table stickyHeader aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Todo ID</TableCell>
@@ -58,7 +47,7 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {todos.map((todo: ReceiveTodo) => (
+            {Todos.map((todo: ReceiveTodo) => (
               <TableRow
                 key={todo.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -72,17 +61,20 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
                 <TableCell align="right">{todo.updatedAt}</TableCell>
                 {isLoggedIn && (
                   <TableCell align="right">
-                    <IconButton
-                      aria-label="delete"
-                      size="medium"
-                      color="error"
-                      onClick={() => {
-                        mutate({ id: todo.id });
-                        setAlert(true);
-                      }}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </IconButton>
+                    <Tooltip title="Delete">
+                      <IconButton
+                        aria-label="delete"
+                        size="medium"
+                        color="error"
+                        onClick={() => {
+                          mutate({ id: todo.id });
+                          handleDelete(todo.id);
+                          snackbar.showMessage("Todo has been deleted!");
+                        }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 )}
               </TableRow>

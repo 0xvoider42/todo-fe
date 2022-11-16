@@ -1,18 +1,17 @@
 import {
-  Alert,
   Box,
   Button,
   Container,
   Grid,
   Paper,
-  Snackbar,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSnackbar } from "material-ui-snackbar-provider";
 
 import { AppDispatch } from "../../store";
 import { FormInput } from "../../models/form";
@@ -22,8 +21,7 @@ import { UserState } from "../../models/userState";
 const AuthPage = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const [successAlert, setSuccessAlert] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
+  const snackbar = useSnackbar();
 
   const { success, error } = useSelector((state: UserState) => state.user);
 
@@ -35,19 +33,14 @@ const AuthPage = () => {
     dispatch(userSignUp(data));
   };
 
-  const handleClose = () => {
-    setSuccessAlert(false);
-    setErrorAlert(false);
-  };
-
   useEffect(() => {
     if (success) {
-      setSuccessAlert(true);
+      snackbar.showMessage("You have been registered!");
     }
     if (error) {
-      setErrorAlert(true);
+      snackbar.showMessage("Something went wrong!");
     }
-  }, [success, error]);
+  });
 
   return (
     <Container maxWidth="sm">
@@ -92,28 +85,6 @@ const AuthPage = () => {
           </form>
         </Box>
       </Paper>
-      {successAlert && (
-        <Snackbar
-          open={successAlert}
-          autoHideDuration={2000}
-          onClose={handleClose}
-        >
-          <Alert severity="success" onClose={handleClose}>
-            User have been registered
-          </Alert>
-        </Snackbar>
-      )}
-      {errorAlert && (
-        <Snackbar
-          open={errorAlert}
-          autoHideDuration={2000}
-          onClose={handleClose}
-        >
-          <Alert severity="error" onClose={handleClose}>
-            Something went wrong, check input values
-          </Alert>
-        </Snackbar>
-      )}
     </Container>
   );
 };

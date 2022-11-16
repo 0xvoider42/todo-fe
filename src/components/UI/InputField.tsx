@@ -1,15 +1,13 @@
 import {
-  Alert,
   Box,
   Button,
   Container,
   Grid,
   Paper,
-  Snackbar,
   Stack,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useSnackbar } from "material-ui-snackbar-provider";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
@@ -18,17 +16,14 @@ import { editTodo } from "../../services/queries/edit-todo";
 
 const UpdateTodo = () => {
   const { mutate } = useMutation(editTodo);
-  const [open, setOpen] = useState(false);
+
+  const snackbar = useSnackbar();
 
   const { register, handleSubmit } = useForm({});
 
   const submitHandler = (data: ApiTodo) => {
     mutate({ ...data });
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+    snackbar.showMessage("Todo has been edited!");
   };
 
   return (
@@ -75,15 +70,6 @@ const UpdateTodo = () => {
               </Grid>
             </Stack>
           </form>
-          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-            <Alert
-              onClose={handleClose}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              The Todo has been edited!
-            </Alert>
-          </Snackbar>
         </Box>
       </Container>
     </Paper>

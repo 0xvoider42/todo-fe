@@ -1,4 +1,5 @@
 import Router from "next/router";
+
 import useUserInfo from "../../hooks/useUserInfo";
 
 const withAuthRedirect = (Component: any) => {

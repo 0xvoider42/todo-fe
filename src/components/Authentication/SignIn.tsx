@@ -1,5 +1,4 @@
 import {
-  Alert,
   Box,
   Button,
   Container,
@@ -7,14 +6,14 @@ import {
   Link,
   Modal,
   Paper,
-  Snackbar,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSnackbar } from "material-ui-snackbar-provider";
 
 import { AppDispatch } from "../../store";
 import { FormInput } from "../../models/form";
@@ -24,8 +23,7 @@ import { UserState } from "../../models/userState";
 const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const [successAlert, setSuccessAlert] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
+  const snackbar = useSnackbar();
 
   const { success, error } = useSelector((state: UserState) => state.user);
 
@@ -37,22 +35,14 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
     dispatch(userSignIn(data));
   };
 
-  const handleSuccessClose = () => {
-    setSuccessAlert(false);
-  };
-
-  const handleFailureClose = () => {
-    setErrorAlert(false);
-  };
-
   useEffect(() => {
     if (success) {
-      setSuccessAlert(true);
+      snackbar.showMessage("You have been signed in!");
     }
     if (error) {
-      setErrorAlert(true);
+      snackbar.showMessage("Something went wrong!");
     }
-  }, [success, error]);
+  });
 
   return (
     <Modal
@@ -108,26 +98,6 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
             </form>
           </Box>
         </Paper>
-        {successAlert && (
-          <Snackbar
-            open={successAlert}
-            autoHideDuration={1500}
-            onClose={handleSuccessClose}
-          >
-            <Alert severity="success">Sign in successful</Alert>
-          </Snackbar>
-        )}
-        {errorAlert && (
-          <Snackbar
-            open={errorAlert}
-            autoHideDuration={1500}
-            onClose={handleFailureClose}
-          >
-            <Alert severity="error">
-              Something went wrong, check input values
-            </Alert>
-          </Snackbar>
-        )}
       </Container>
     </Modal>
   );
