@@ -108,7 +108,7 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
             </form>
           </Box>
         </Paper>
-        {successAlert ? (
+        {successAlert && (
           <Snackbar
             open={successAlert}
             autoHideDuration={1500}
@@ -116,8 +116,8 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
           >
             <Alert severity="success">Sign in successful</Alert>
           </Snackbar>
-        ) : null}
-        {errorAlert ? (
+        )}
+        {errorAlert && (
           <Snackbar
             open={errorAlert}
             autoHideDuration={1500}
@@ -127,7 +127,7 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
               Something went wrong, check input values
             </Alert>
           </Snackbar>
-        ) : null}
+        )}
       </Container>
     </Modal>
   );

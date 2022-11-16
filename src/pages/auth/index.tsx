@@ -1,7 +1,7 @@
 import AuthPage from "../../components/Authentication/AuthPage";
 
-const authenticate = (props) => {
+const Authenticate = (props) => {
   return <AuthPage {...props} />;
 };
 
-export default authenticate;
+export default Authenticate;

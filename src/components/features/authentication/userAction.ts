@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { SignInInitials, SignUpInitials } from "../../../models/auth";
-import { SignInBody, SignUpBody } from "../../../services/api/api.type";
-import { signUp } from "../../../services/auth/signUp";
 import { signIn } from "../../../services/auth/singIn";
+import { SignInBody, SignUpBody } from "../../../services/api/api.type";
+import { SignInInitials, SignUpInitials } from "../../../models/auth";
+import { signUp } from "../../../services/auth/signUp";
 
 export const userSignUp = createAsyncThunk(
   "user/signup",
@@ -12,7 +12,7 @@ export const userSignUp = createAsyncThunk(
       const response = await signUp(userInitials);
       return response.data as SignUpBody;
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      if (error.response?.data?.message) {
         return rejectWithValue(error.response.data.message);
       }
       return rejectWithValue(error.message);
@@ -27,7 +27,7 @@ export const userSignIn = createAsyncThunk(
       const response = await signIn(userInitials);
       return response.data as SignInBody;
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      if (error.response?.data?.message) {
         return rejectWithValue(error.response.data.message);
       }
       return rejectWithValue(error.message);

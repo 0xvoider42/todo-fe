@@ -1,7 +1,8 @@
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { useState } from "react";
-import UserProfile from "../Authentication/UserProfile";
+
 import ThemeSwitcher from "./ThemeSwitcher";
+import UserProfile from "../Authentication/UserProfile";
 
 const AuthTodoMenu = () => {
   const [openUserModal, setOpenUserModal] = useState(false);
@@ -31,8 +32,9 @@ const AuthTodoMenu = () => {
               variant="outlined"
               color="secondary"
               onClick={() => {
-                if (openUserModal === true) {
+                if (openUserModal) {
                   setOpenUserModal(false);
+                  return;
                 }
                 setOpenUserModal(true);
               }}

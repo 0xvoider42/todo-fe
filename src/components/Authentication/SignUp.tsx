@@ -94,18 +94,18 @@ const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
             </form>
           </Box>
         </Paper>
-        {successAlert ? (
+        {successAlert && (
           <Snackbar open={successAlert} autoHideDuration={2}>
             <Alert severity="success">User have been registered</Alert>
           </Snackbar>
-        ) : null}
-        {errorAlert ? (
+        )}
+        {errorAlert && (
           <Snackbar open={errorAlert} autoHideDuration={2}>
             <Alert severity="error">
               Something went wrong, check input values
             </Alert>
           </Snackbar>
-        ) : null}
+        )}
       </Container>
     </Modal>
   );

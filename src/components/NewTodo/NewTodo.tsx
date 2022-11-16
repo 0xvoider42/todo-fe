@@ -26,7 +26,7 @@ const NewTodo = () => {
   });
 
   const submitHandler = (data: ApiTodo) => {
-    mutate({ ...data });
+    mutate(data);
     setOpen(true);
   };
 

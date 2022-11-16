@@ -1,13 +1,13 @@
 import {
+  Alert,
+  Paper,
+  Snackbar,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-  Alert,
-  Snackbar,
 } from "@mui/material";
 import { useMutation } from "react-query";
 import { useState } from "react";
@@ -33,7 +33,7 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
 
   return (
     <Paper elevation={2}>
-      {alert ? (
+      {alert && (
         <Snackbar open={alert} autoHideDuration={3000} onClose={handleClose}>
           <Alert
             severity="error"
@@ -44,7 +44,7 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
             Todo has been deleted
           </Alert>
         </Snackbar>
-      ) : null}
+      )}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

@@ -35,6 +35,11 @@ const AuthPage = () => {
     dispatch(userSignUp(data));
   };
 
+  const handleClose = () => {
+    setSuccessAlert(false);
+    setErrorAlert(false);
+  };
+
   useEffect(() => {
     if (success) {
       setSuccessAlert(true);
@@ -87,18 +92,28 @@ const AuthPage = () => {
           </form>
         </Box>
       </Paper>
-      {successAlert ? (
-        <Snackbar open={successAlert} autoHideDuration={2}>
-          <Alert severity="success">User have been registered</Alert>
+      {successAlert && (
+        <Snackbar
+          open={successAlert}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="success" onClose={handleClose}>
+            User have been registered
+          </Alert>
         </Snackbar>
-      ) : null}
-      {errorAlert ? (
-        <Snackbar open={errorAlert} autoHideDuration={2}>
-          <Alert severity="error">
+      )}
+      {errorAlert && (
+        <Snackbar
+          open={errorAlert}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="error" onClose={handleClose}>
             Something went wrong, check input values
           </Alert>
         </Snackbar>
-      ) : null}
+      )}
     </Container>
   );
 };

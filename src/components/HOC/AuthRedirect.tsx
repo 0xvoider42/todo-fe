@@ -1,8 +1,8 @@
 import Router from "next/router";
 import useUserInfo from "../../hooks/useUserInfo";
 
-const withAuthRedirect = (Component) => {
-  const route = (props) => {
+const withAuthRedirect = (Component: any) => {
+  const route = (props: any) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { isLoggedIn } = useUserInfo();
 
@@ -10,9 +10,11 @@ const withAuthRedirect = (Component) => {
       return <Component {...props} />;
     }
 
-    typeof window !== "undefined" && Router.push("/auth");
+    if (typeof window !== "undefined") {
+      Router.push("/auth");
+    }
 
-    return <Component {...props} />;
+    return null;
   };
 
   return route;

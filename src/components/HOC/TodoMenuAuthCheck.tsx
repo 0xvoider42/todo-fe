@@ -1,15 +1,16 @@
 import useUserInfo from "../../hooks/useUserInfo";
+import NonAuthTodoMenu from "../UI/NonAuthTodoMenu";
 
-const withConditionalAuth = (Auth, NonAuth) => {
-  const route = () => {
+const withConditionalAuth = (Component) => {
+  const route = (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { isLoggedIn } = useUserInfo();
 
     if (isLoggedIn) {
-      return <Auth />;
+      return <Component {...props} />;
     }
 
-    return <NonAuth />;
+    return <NonAuthTodoMenu {...props} />;
   };
 
   return route;
