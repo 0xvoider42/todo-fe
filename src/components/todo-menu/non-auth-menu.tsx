@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import SignIn from "../authentication/sign-in";
 import SignUp from "../authentication/sign-up";
-import ThemeSwitcher from "../ui/theme-switcher/theme-switcher";
+import ThemeSwitcher from "../ui/theme-switcher";
 
 const NonAuthTodoMenu = () => {
   const [openSignInModal, setOpenSignInModal] = useState(false);

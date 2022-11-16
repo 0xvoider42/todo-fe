@@ -1,7 +1,7 @@
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { useState } from "react";
 
-import ThemeSwitcher from "../ui/theme-switcher/theme-switcher";
+import ThemeSwitcher from "../ui/theme-switcher";
 import UserProfile from "../authentication/user-profile";
 
 const AuthTodoMenu = () => {
