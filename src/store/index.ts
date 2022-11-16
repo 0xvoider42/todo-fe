@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "../components/features/authentication/userReducer";
+import userSlice from "./authentication/user-reducer";
 
 export type AppDispatch = typeof store.dispatch;
 

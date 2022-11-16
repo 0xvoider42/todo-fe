@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { deleteCookie, setCookie } from "cookies-next";
 
-import { api } from "../../../services/api";
-import { userSignIn, userSignUp } from "./userAction";
+import { api } from "../../services/api";
+import { userSignIn, userSignUp } from "./user-action";
 
 const initialState = {
   loading: false,

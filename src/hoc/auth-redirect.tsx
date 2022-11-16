@@ -1,6 +1,6 @@
 import Router from "next/router";
 
-import useUserInfo from "../../hooks/useUserInfo";
+import useUserInfo from "../hooks/user-info";
 
 const withAuthRedirect = (Component: any) => {
   const route = (props: any) => {

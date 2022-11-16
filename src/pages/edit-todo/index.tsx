@@ -1,5 +1,5 @@
-import withAuthRedirect from "../../components/HOC/AuthRedirect";
-import InputField from "../../components/UI/InputField";
+import withAuthRedirect from "../../hoc/auth-redirect";
+import InputField from "../../components/edit-todo";
 
 const EditTodoPage = () => {
   return <InputField />;

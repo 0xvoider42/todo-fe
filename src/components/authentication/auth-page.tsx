@@ -15,8 +15,8 @@ import { useSnackbar } from "material-ui-snackbar-provider";
 
 import { AppDispatch } from "../../store";
 import { FormInput } from "../../models/form";
-import { userSignUp } from "../features/authentication/userAction";
-import { UserState } from "../../models/userState";
+import { userSignUp } from "../../store/authentication/user-action";
+import { UserState } from "../../models/user-state";
 
 const AuthPage = () => {
   const dispatch: AppDispatch = useDispatch();

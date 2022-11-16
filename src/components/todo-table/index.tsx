@@ -15,7 +15,7 @@ import IconButton from "@mui/material/IconButton";
 
 import { deleteTodo } from "../../services/queries/delete-todo";
 import { ReceiveTodo } from "../../models/todo";
-import useUserInfo from "../../hooks/useUserInfo";
+import useUserInfo from "../../hooks/user-info";
 import { useState } from "react";
 
 const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({

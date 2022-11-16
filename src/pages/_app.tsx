@@ -9,8 +9,8 @@ import { Container } from "@mui/system";
 
 import { api } from "../services/api";
 import { store } from "../store/index";
-import TopMenu from "../components/UI/TopMenu";
-import { setUserToken } from "../components/features/authentication/userReducer";
+import TopMenu from "../components/todo-menu/top-menu";
+import { setUserToken } from "../store/authentication/user-reducer";
 import { SnackbarProvider } from "material-ui-snackbar-provider";
 
 const queryClient = new QueryClient();
@@ -24,7 +24,7 @@ const MyApp = ({ Component, token, pageProps }) => {
     <Provider store={store}>
       <CssVarsProvider>
         <QueryClientProvider client={queryClient}>
-          <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000 }}>
+          <SnackbarProvider SnackbarProps={{ autoHideDuration: 2500 }}>
             <TopMenu />
             <Container maxWidth="md">
               <Stack spacing={1} padding={2}>

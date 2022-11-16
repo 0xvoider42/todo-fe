@@ -29,7 +29,7 @@ const NewTodo = () => {
             <Stack spacing={1.5} alignItems="baseline">
               <Grid container direction="column" item xs={2}>
                 <TextField
-                  {...register("title")}
+                  {...register("title", { required: true })}
                   fullWidth
                   label="Title"
                   id="outlined-basic"
@@ -39,7 +39,7 @@ const NewTodo = () => {
               </Grid>
               <Grid container item xs={6}>
                 <TextField
-                  {...register("text")}
+                  {...register("text", { required: true })}
                   multiline
                   rows={3}
                   fullWidth

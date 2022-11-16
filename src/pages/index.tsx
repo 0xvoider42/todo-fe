@@ -1,7 +1,7 @@
 import { ApiTodo, ReceiveTodo } from "../models/todo";
 import { getTodos } from "../services/queries/get-todos";
-import withAuthRedirect from "../components/HOC/AuthRedirect";
-import TodoTable from "../components/UI/TodoTable";
+import withAuthRedirect from "../hoc/auth-redirect";
+import TodoTable from "../components/todo-table";
 
 interface Props {
   todos: ReceiveTodo[];

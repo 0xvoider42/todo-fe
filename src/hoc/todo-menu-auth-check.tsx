@@ -1,5 +1,5 @@
-import useUserInfo from "../../hooks/useUserInfo";
-import NonAuthTodoMenu from "../UI/NonAuthTodoMenu";
+import useUserInfo from "../hooks/user-info";
+import NonAuthTodoMenu from "../components/todo-menu/non-auth-menu";
 
 const withConditionalAuth = (Component) => {
   const route = (props) => {

@@ -1,9 +1,9 @@
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { useState } from "react";
 
-import SignIn from "../Authentication/SignIn";
-import SignUp from "../Authentication/SignUp";
-import ThemeSwitcher from "./ThemeSwitcher";
+import SignIn from "../authentication/sign-in";
+import SignUp from "../authentication/sign-up";
+import ThemeSwitcher from "../ui/theme-switcher/theme-switcher";
 
 const NonAuthTodoMenu = () => {
   const [openSignInModal, setOpenSignInModal] = useState(false);

@@ -1,4 +1,4 @@
-import { checkTokenValidity } from "../components/features/tokenValidityCheck";
+import { checkTokenValidity } from "../utils/token-validity-check";
 import { RootState } from "../store";
 import { useSelector } from "react-redux";
 
