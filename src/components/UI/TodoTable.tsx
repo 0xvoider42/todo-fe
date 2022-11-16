@@ -29,7 +29,8 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   const { mutate } = useMutation(deleteTodo);
 
   const handleDelete = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((_, index) => index !== id));
+    Todos.splice(id, 1);
+    setTodos(Todos);
   };
 
   return (
@@ -68,7 +69,7 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
                         color="error"
                         onClick={() => {
                           mutate({ id: todo.id });
-                          handleDelete(todo.id);
+                          handleDelete({ id: todo.id });
                           snackbar.showMessage("Todo has been deleted!");
                         }}
                       >
