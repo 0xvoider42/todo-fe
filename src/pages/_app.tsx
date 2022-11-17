@@ -9,7 +9,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { SnackbarProvider } from "material-ui-snackbar-provider";
 
 import { api } from "../services/api";
-import { setUserToken } from "../store/authentication/user-reducer";
+import {
+  setUserState,
+  setUserToken,
+} from "../store/authentication/user-reducer";
 import { store } from "../store/index";
 import TopMenu from "../components/todo-menu/top-menu";
 
@@ -17,6 +20,10 @@ const queryClient = new QueryClient();
 
 const MyApp = ({ Component, token, pageProps }) => {
   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+  if (token) {
+    store.dispatch(setUserState(true));
+  }
 
   store.dispatch(setUserToken(token));
 

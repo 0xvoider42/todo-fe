@@ -8,7 +8,7 @@ const initialState = {
   loading: false,
   userInfo: {
     user: null,
-    isLoggedIn: false,
+    isLoggedIn: null,
   },
   error: null,
   success: false,
@@ -21,6 +21,9 @@ const userSlice = createSlice({
   reducers: {
     setUserToken(state, action: PayloadAction<string>) {
       state.userToken = action.payload;
+    },
+    setUserState(state, action: PayloadAction<boolean>) {
+      state.userInfo.isLoggedIn = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -64,5 +67,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserToken } = userSlice.actions;
+export const { setUserToken, setUserState } = userSlice.actions;
 export default userSlice.reducer;

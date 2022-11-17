@@ -1,24 +1,26 @@
+import { is } from "immer/dist/internal";
 import { GetServerSidePropsContext } from "next";
 import { RootState, store } from "../store";
 
-export interface AuthGetServerSideProps extends GetServerSidePropsContext {
+export interface AuthGetServerSidePropsContext
+  extends GetServerSidePropsContext {
   stores: RootState;
 }
 
 export const authGetServerSideProps = (getServerSideProps?: Function) => {
-  const checkProps = async (ctx: AuthGetServerSideProps) => {
+  const wrapper = async (ctx: AuthGetServerSidePropsContext) => {
     let pageProps = {};
+    const stores = store.getState();
 
-    const state = store.getState();
-
-    if (!state.user.userInfo.isLoggedIn) {
-      ctx.res.writeHead(302, {
-        Location: "/",
-      });
-      ctx.res.end();
+    if (stores.user.userInfo.isLoggedIn === false) {
+      return {
+        redirect: {
+          destination: "/auth",
+        },
+      };
     }
 
-    ctx.stores = state;
+    ctx.stores = stores;
 
     if (getServerSideProps) {
       pageProps = await getServerSideProps(ctx);
@@ -27,10 +29,10 @@ export const authGetServerSideProps = (getServerSideProps?: Function) => {
     return {
       props: {
         props: pageProps,
-        serverStores: state,
+        serverStores: stores,
       },
     };
   };
 
-  return checkProps;
+  return wrapper;
 };

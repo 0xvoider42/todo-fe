@@ -21,32 +21,21 @@ import { getTodos } from "../services/queries/get-todos";
 import withAuthRedirect from "../hoc/auth-redirect";
 import {
   authGetServerSideProps,
-  AuthGetServerSideProps,
+  AuthGetServerSidePropsContext,
 } from "../hoc/auth-route";
 
-// export const getServerSideProps = authGetServerSideProps(
-//   async (ctx: AuthGetServerSideProps) => {
-//     const data = await getTodos();
-//     const state = ctx.stores.user.userInfo;
+export const getServerSideProps = authGetServerSideProps(
+  async (ctx: AuthGetServerSidePropsContext) => {
+    const data = await getTodos();
 
-//     return {
-//       props: {
-//         todos: data.data,
-//         state: state,
-//       },
-//     };
-//   }
-// );
+    return {
+      props: {
+        todos: data,
+      },
+    };
+  }
+);
 
-export const getServerSideProps = async () => {
-  const data = await getTodos();
-
-  return {
-    props: {
-      todos: data.data,
-    },
-  };
-};
 const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   todos,
 }) => {
