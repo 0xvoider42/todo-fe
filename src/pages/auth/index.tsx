@@ -40,7 +40,7 @@ const AuthPage = () => {
     if (error) {
       snackbar.showMessage("Something went wrong!");
     }
-  }, [success, error]);
+  }, [error, success, snackbar]);
 
   return (
     <Container maxWidth="sm">

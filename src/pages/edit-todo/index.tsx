@@ -21,7 +21,7 @@ const UpdateTodo = () => {
   const snackbar = useSnackbar();
 
   const { register, handleSubmit } = useForm({
-    defaultValues: { id: 0, title: "", text: "", token: "" },
+    defaultValues: { id: null, title: "", text: "", token: "" },
   });
 
   const submitHandler = (data: ApiTodo) => {

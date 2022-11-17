@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   userInfo: {
     user: null,
+    isLoggedIn: false,
   },
   error: null,
   success: false,
@@ -33,6 +34,7 @@ const userSlice = createSlice({
         state.success = true;
         state.userInfo.user = action.payload.email;
         state.userToken = action.payload.token.access_token;
+        state.userInfo.isLoggedIn = true;
         setCookie("token", action.payload.token.access_token);
         api.defaults.headers.common[
           "Authorization"

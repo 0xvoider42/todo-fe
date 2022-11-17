@@ -10,15 +10,33 @@ import {
 } from "@mui/material";
 import { useMutation } from "react-query";
 import { useSnackbar } from "material-ui-snackbar-provider";
+import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 
 import { deleteTodo } from "../services/queries/delete-todo";
 import { ReceiveTodo } from "../models/todo";
 import useUserInfo from "../hooks/user-info";
-import { useState } from "react";
 import { getTodos } from "../services/queries/get-todos";
 import withAuthRedirect from "../hoc/auth-redirect";
+import {
+  authGetServerSideProps,
+  AuthGetServerSideProps,
+} from "../hoc/auth-route";
+
+// export const getServerSideProps = authGetServerSideProps(
+//   async (ctx: AuthGetServerSideProps) => {
+//     const data = await getTodos();
+//     const state = ctx.stores.user.userInfo;
+
+//     return {
+//       props: {
+//         todos: data.data,
+//         state: state,
+//       },
+//     };
+//   }
+// );
 
 export const getServerSideProps = async () => {
   const data = await getTodos();
@@ -29,11 +47,11 @@ export const getServerSideProps = async () => {
     },
   };
 };
-
 const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   todos,
 }) => {
   const [todoTable, setTodoTable] = useState(todos);
+
   const { isLoggedIn } = useUserInfo();
 
   const snackbar = useSnackbar();

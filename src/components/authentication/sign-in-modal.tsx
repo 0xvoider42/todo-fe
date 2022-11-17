@@ -42,7 +42,7 @@ const SignIn = ({ openSignInModal, setOpenSignInModal }) => {
     if (error) {
       snackbar.showMessage("Something went wrong!");
     }
-  }, [success, error]);
+  }, [success, error, snackbar]);
 
   return (
     <Modal

@@ -41,7 +41,7 @@ const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
     if (error) {
       snackbar.showMessage("Something went wrong!");
     }
-  }, [success, error]);
+  }, [success, error, snackbar]);
 
   return (
     <Modal

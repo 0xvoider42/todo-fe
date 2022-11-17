@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { deleteCookie } from "cookies-next";
 import { useSnackbar } from "material-ui-snackbar-provider";
+import Router from "next/router";
 
 import { api } from "../../services/api";
 
@@ -18,6 +19,7 @@ const UserProfile = ({ openUserModal, setOpenUserModal }) => {
     deleteCookie("token");
     delete api.defaults.headers.common["Authorization"];
     snackbar.showMessage("You have been signed out!");
+    Router.push("/");
   };
 
   return (

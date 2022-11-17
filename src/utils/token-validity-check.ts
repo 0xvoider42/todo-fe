@@ -1,10 +1,10 @@
 export const checkTokenValidity = (token: string) => {
   if (!token) {
-    return true;
+    return false;
   }
 
   return (
-    Date.now() >=
+    Date.now() <=
     JSON.parse(Buffer.from(token.split(".")[1], "base64").toString()).exp * 1000
   );
 };

@@ -46,8 +46,7 @@ const NonAuthTodoMenu = () => {
               color="secondary"
               onClick={() => {
                 if (openSignInModal === true) {
-                  setOpenSignInModal(false);
-                  return;
+                  return setOpenSignInModal(false);
                 }
                 setOpenSignUpModal(true);
               }}
