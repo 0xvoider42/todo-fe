@@ -18,23 +18,16 @@ import { deleteTodo } from "../services/queries/delete-todo";
 import { ReceiveTodo } from "../models/todo";
 import useUserInfo from "../hooks/user-info";
 import withAuthRedirect from "../hoc/auth-redirect";
-import {
-  authGetServerSideProps,
-  AuthGetServerSidePropsContext,
-} from "../hoc/auth-route";
+import { authGetServerSideProps } from "../hoc/auth-route";
 import { getTodos } from "../services/queries/get-todos";
 
-export const getServerSideProps = authGetServerSideProps(
-  async (ctx: AuthGetServerSidePropsContext) => {
-    const todoData = await getTodos();
+export const getServerSideProps = authGetServerSideProps(async () => {
+  const todoData = await getTodos();
 
-    return {
-      props: {
-        todos: todoData.data,
-      },
-    };
-  }
-);
+  return {
+    props: { todos: todoData.data },
+  };
+});
 
 const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
   todos,

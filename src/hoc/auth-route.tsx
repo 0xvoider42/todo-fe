@@ -11,14 +11,20 @@ export const authGetServerSideProps = (getServerSideProps?: Function) => {
   const Wrapper = async (ctx: AuthGetServerSidePropsContext) => {
     let pageProps = {};
 
-    const user = store.getState();
+    const user = await store.getState();
     const userToken = user.user.userToken;
 
     if (!checkTokenValidity(userToken)) {
       ctx.res.writeHead(301, {
         Location: "/auth",
+        "Cache-Control": "no-cache",
       });
+
       ctx.res.end();
+
+      return {
+        props: {},
+      };
     }
 
     ctx.data = user;
@@ -27,9 +33,7 @@ export const authGetServerSideProps = (getServerSideProps?: Function) => {
       pageProps = await getServerSideProps(ctx.data);
     }
 
-    return {
-      ...pageProps,
-    };
+    return { ...pageProps };
   };
 
   return Wrapper;
