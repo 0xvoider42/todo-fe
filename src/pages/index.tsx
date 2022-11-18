@@ -17,7 +17,6 @@ import IconButton from "@mui/material/IconButton";
 import { deleteTodo } from "../services/queries/delete-todo";
 import { ReceiveTodo } from "../models/todo";
 import useUserInfo from "../hooks/user-info";
-import { getTodos } from "../services/queries/get-todos";
 import withAuthRedirect from "../hoc/auth-redirect";
 import {
   authGetServerSideProps,
@@ -26,12 +25,10 @@ import {
 
 export const getServerSideProps = authGetServerSideProps(
   async (ctx: AuthGetServerSidePropsContext) => {
-    const data = await getTodos();
+    const data = ctx.data.data;
 
     return {
-      props: {
-        todos: data,
-      },
+      todos: data,
     };
   }
 );

@@ -1,38 +1,32 @@
-import { is } from "immer/dist/internal";
 import { GetServerSidePropsContext } from "next";
-import { RootState, store } from "../store";
+import Router from "next/router";
+import { getTodos } from "../services/queries/get-todos";
+import { store } from "../store";
 
 export interface AuthGetServerSidePropsContext
   extends GetServerSidePropsContext {
-  stores: RootState;
+  data;
 }
 
 export const authGetServerSideProps = (getServerSideProps?: Function) => {
-  const wrapper = async (ctx: AuthGetServerSidePropsContext) => {
-    let pageProps = {};
-    const stores = store.getState();
+  const Wrapper = async (ctx: AuthGetServerSidePropsContext) => {
+    const todos = await getTodos();
 
-    if (stores.user.userInfo.isLoggedIn === false) {
-      return {
-        redirect: {
-          destination: "/auth",
-        },
-      };
+    const user = store.getState();
+    const userState = user.user.userInfo.isLoggedIn;
+
+    if (userState === false) {
+      return Router.push("/auth");
     }
 
-    ctx.stores = stores;
-
-    if (getServerSideProps) {
-      pageProps = await getServerSideProps(ctx);
-    }
+    ctx.data = todos.data;
 
     return {
       props: {
-        props: pageProps,
-        serverStores: stores,
+        todos: todos.data,
       },
     };
   };
 
-  return wrapper;
+  return Wrapper;
 };

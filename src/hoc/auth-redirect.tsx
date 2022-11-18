@@ -3,7 +3,7 @@ import Router from "next/router";
 import useUserInfo from "../hooks/user-info";
 
 const withAuthRedirect = (Component: any) => {
-  const route = (props: any) => {
+  const Route = (props: any) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { isLoggedIn } = useUserInfo();
 
@@ -18,7 +18,7 @@ const withAuthRedirect = (Component: any) => {
     return null;
   };
 
-  return route;
+  return Route;
 };
 
 export default withAuthRedirect;
