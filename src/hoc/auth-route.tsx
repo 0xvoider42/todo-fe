@@ -1,7 +1,6 @@
 import { GetServerSidePropsContext } from "next";
-import Router from "next/router";
-import { getTodos } from "../services/queries/get-todos";
 import { store } from "../store";
+import { checkTokenValidity } from "../utils/token-validity-check";
 
 export interface AuthGetServerSidePropsContext
   extends GetServerSidePropsContext {
@@ -10,21 +9,26 @@ export interface AuthGetServerSidePropsContext
 
 export const authGetServerSideProps = (getServerSideProps?: Function) => {
   const Wrapper = async (ctx: AuthGetServerSidePropsContext) => {
-    const todos = await getTodos();
+    let pageProps = {};
 
     const user = store.getState();
-    const userState = user.user.userInfo.isLoggedIn;
+    const userToken = user.user.userToken;
 
-    if (userState === false) {
-      return Router.push("/auth");
+    if (!checkTokenValidity(userToken)) {
+      ctx.res.writeHead(301, {
+        Location: "/auth",
+      });
+      ctx.res.end();
     }
 
-    ctx.data = todos.data;
+    ctx.data = user;
+
+    if (getServerSideProps) {
+      pageProps = await getServerSideProps(ctx.data);
+    }
 
     return {
-      props: {
-        todos: todos.data,
-      },
+      ...pageProps,
     };
   };
 

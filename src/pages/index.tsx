@@ -22,13 +22,16 @@ import {
   authGetServerSideProps,
   AuthGetServerSidePropsContext,
 } from "../hoc/auth-route";
+import { getTodos } from "../services/queries/get-todos";
 
 export const getServerSideProps = authGetServerSideProps(
   async (ctx: AuthGetServerSidePropsContext) => {
-    const data = ctx.data.data;
+    const todoData = await getTodos();
 
     return {
-      todos: data,
+      props: {
+        todos: todoData.data,
+      },
     };
   }
 );

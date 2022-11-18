@@ -77,7 +77,7 @@ const AuthPage = () => {
               <Box padding={1}>
                 <Stack spacing={2} direction="row">
                   <Button type="submit" variant="contained" color="secondary">
-                    Sign Up
+                    Sign up
                   </Button>
                 </Stack>
               </Box>
