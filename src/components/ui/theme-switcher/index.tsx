@@ -9,16 +9,18 @@ const ThemeSwitcher = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Button
-      variant="outlined"
+      color="secondary"
       onClick={() => {
-        setMode(mode === "light" ? "dark" : "light");
+        setMode(mode === "dark" ? "light" : "dark");
       }}
     >
-      {mode === "light" ? "dark" : "light"}
+      {mode === "dark" ? "light" : "dark"}
     </Button>
   );
 };

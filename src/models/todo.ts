@@ -1,4 +1,4 @@
-export interface receiveTodo {
+export interface ReceiveTodo {
   id: number;
   title: string;
   text: string;
@@ -7,7 +7,12 @@ export interface receiveTodo {
 }
 
 export interface ApiTodo {
-  id?: number | string;
+  id?: number;
   title: string;
   text: string;
+  token: string;
+}
+
+export interface DeleteTodoType {
+  id: number;
 }
