@@ -35,7 +35,7 @@ const UpdateTodo = () => {
         <Box padding={2}>
           <form onSubmit={handleSubmit(submitHandler)}>
             <Stack spacing={1.5} alignItems="baseline">
-              <Grid container direction="column" item xs={2}>
+              <Grid container direction="column" xs={2}>
                 <TextField
                   {...register("id", { required: true })}
                   required
@@ -44,7 +44,7 @@ const UpdateTodo = () => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid container item xs={6}>
+              <Grid container xs={6}>
                 <TextField
                   {...register("title")}
                   id="outlined-basic"
@@ -54,7 +54,7 @@ const UpdateTodo = () => {
                   type="text"
                 />
               </Grid>
-              <Grid container item xs={6}>
+              <Grid container xs={6}>
                 <TextField
                   {...register("text")}
                   multiline
@@ -66,7 +66,7 @@ const UpdateTodo = () => {
                   type="text"
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid container xs={6}>
                 <Button type="submit" variant="outlined">
                   Submit
                 </Button>

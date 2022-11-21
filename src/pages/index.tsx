@@ -44,6 +44,8 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
     const index = todoTable.findIndex((el) => el.id === id);
     todoTable.splice(index, 1);
     setTodoTable(todoTable);
+    mutate({ id });
+    snackbar.showMessage("Todo has been deleted!");
   };
 
   return (
@@ -82,8 +84,6 @@ const TodoTable: ({ todos }: { todos: ReceiveTodo[] }) => JSX.Element = ({
                         color="error"
                         onClick={() => {
                           handleDelete({ id: todo.id });
-                          mutate({ id: todo.id });
-                          snackbar.showMessage("Todo has been deleted!");
                         }}
                       >
                         <DeleteIcon fontSize="small" />

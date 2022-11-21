@@ -30,12 +30,7 @@ const NonAuthTodoMenu = () => {
           <Box padding={1}>
             <Button
               color="inherit"
-              onClick={() => {
-                if (openSignUpModal) {
-                  return setOpenSignUpModal(false);
-                }
-                setOpenSignInModal(!openSignInModal);
-              }}
+              onClick={() => setOpenSignInModal(!openSignInModal)}
             >
               Sign in
             </Button>
@@ -44,12 +39,7 @@ const NonAuthTodoMenu = () => {
             <Button
               variant="outlined"
               color="secondary"
-              onClick={() => {
-                if (openSignInModal === true) {
-                  return setOpenSignInModal(false);
-                }
-                setOpenSignUpModal(true);
-              }}
+              onClick={() => setOpenSignUpModal(!openSignUpModal)}
             >
               Sign up
             </Button>

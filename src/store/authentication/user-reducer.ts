@@ -8,7 +8,6 @@ const initialState = {
   loading: false,
   userInfo: {
     user: null,
-    isLoggedIn: null,
   },
   error: null,
   success: false,
@@ -22,8 +21,8 @@ const userSlice = createSlice({
     setUserToken(state, action: PayloadAction<string>) {
       state.userToken = action.payload;
     },
-    setUserState(state, action: PayloadAction<boolean>) {
-      state.userInfo.isLoggedIn = action.payload;
+    setUserInfo(state, action: PayloadAction<string>) {
+      state.userInfo.user = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -37,7 +36,6 @@ const userSlice = createSlice({
         state.success = true;
         state.userInfo.user = action.payload.email;
         state.userToken = action.payload.token.access_token;
-        state.userInfo.isLoggedIn = true;
         setCookie("token", action.payload.token.access_token);
         api.defaults.headers.common[
           "Authorization"
@@ -67,5 +65,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserToken, setUserState } = userSlice.actions;
+export const { setUserToken, setUserInfo } = userSlice.actions;
 export default userSlice.reducer;

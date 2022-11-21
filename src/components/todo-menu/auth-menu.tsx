@@ -31,12 +31,7 @@ const AuthTodoMenu = () => {
             <Button
               variant="outlined"
               color="secondary"
-              onClick={() => {
-                if (openUserModal) {
-                  return setOpenUserModal(false);
-                }
-                setOpenUserModal(true);
-              }}
+              onClick={() => setOpenUserModal(!openUserModal)}
             >
               User profile
             </Button>

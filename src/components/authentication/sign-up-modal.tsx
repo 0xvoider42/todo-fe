@@ -58,7 +58,7 @@ const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
             </Typography>
             <form onSubmit={handleSubmit(submitHandler)}>
               <Stack spacing={1} alignItems="baseline">
-                <Grid container direction="column" item xs={5}>
+                <Grid container direction="column" xs={5}>
                   <TextField
                     {...register("email")}
                     fullWidth
@@ -69,7 +69,7 @@ const SignUp = ({ openSignUpModal, setOpenSignUpModal }) => {
                     type="text"
                   />
                 </Grid>
-                <Grid container item xs={6}>
+                <Grid container xs={6}>
                   <TextField
                     {...register("password")}
                     fullWidth

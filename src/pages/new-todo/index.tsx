@@ -28,7 +28,7 @@ const NewTodo = () => {
         <Box padding={3}>
           <form onSubmit={handleSubmit(submitHandler)}>
             <Stack spacing={1.5} alignItems="baseline">
-              <Grid container direction="column" item xs={2}>
+              <Grid container direction="column" xs={2}>
                 <TextField
                   {...register("title", { required: true })}
                   fullWidth
@@ -38,7 +38,7 @@ const NewTodo = () => {
                   type="text"
                 />
               </Grid>
-              <Grid container item xs={6}>
+              <Grid container xs={6}>
                 <TextField
                   {...register("text", { required: true })}
                   multiline

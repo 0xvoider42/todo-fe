@@ -8,7 +8,7 @@ export interface AuthGetServerSidePropsContext
 }
 
 export const authGetServerSideProps = (getServerSideProps?: Function) => {
-  const Wrapper = async (ctx: AuthGetServerSidePropsContext) => {
+  return async (ctx: AuthGetServerSidePropsContext) => {
     let pageProps = {};
 
     const user = await store.getState();
@@ -35,6 +35,4 @@ export const authGetServerSideProps = (getServerSideProps?: Function) => {
 
     return { ...pageProps };
   };
-
-  return Wrapper;
 };
